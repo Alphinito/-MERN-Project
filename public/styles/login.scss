@@ -1,0 +1,32 @@
+@use 'vars';
+.contLogo{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 1rem;
+    text-align: center;
+}
+.contLogo img{
+    height: 80px;
+}
+.der_cont_login{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    border-radius: 20px;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: #F9F9F9;
+    align-items: center;
+    justify-items: center;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+}
+.der_cont_login input{
+    outline: none;
+    border-radius: 8px;
+    border: none;
+    margin: 1rem;
+    padding: 8px;
+}

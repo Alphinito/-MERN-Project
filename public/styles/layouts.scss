@@ -1,0 +1,55 @@
+@use 'vars';
+
+.SingleLayout{//------------------------------------------------------------------------------|SingleLayout|
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+.MainSimpleLayout{//--------------------------------------------------------------------------|MainSimpleLayout|
+    height: 100vh;
+    background-color: red;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+.MainLoginLayout{//---------------------------------------------------------------------------|MainLoginLayout|
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: 100vh;
+}
+.MainBoardLayout{//---------------------------------------------------------------------------|MainBoardLayout|
+    display: grid;
+    grid-template-rows: 110px 1fr 40px;
+    grid-template-columns: 2fr 8fr 1fr;
+    height: 100vh;
+    background-color: white;
+}
+.BoardConentLayout{//-------------------------------------------------------------------------|BoardConentLayout|
+    display: grid;
+    padding: var(--padding);
+    gap: 1rem;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 2fr;
+}
+.BoardConentDetailLayout{//-------------------------------------------------------------------|BoardConentDetailLayout|
+    display: grid;
+    padding: var(--padding);
+    gap: 1rem;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    grid-template-rows: 1fr 2fr;
+    background-color: rgba(255, 0, 0, 0.216);
+}

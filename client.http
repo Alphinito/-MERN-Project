@@ -1,0 +1,57 @@
+###
+GET http://localhost:9000/log/1000810187/clave HTTP/1.1
+
+###
+GET http://localhost:9000/clientes HTTP/1.1
+
+###
+GET http://localhost:9000/charts/graphic1/1/2 HTTP/1.1
+
+###
+GET http://localhost:9000/visitas-real/list/2 HTTP/1.1
+###
+
+GET http://localhost:9000/form-visitas/list/3 HTTP/1.1
+
+###
+POST http://localhost:9000/visitas-real HTTP/1.1
+Content-Type: application/json
+
+{
+    "REA_VIS": 46,
+    "REA_DIRECTA": 1,
+    "REA_FECHA": "2022-11-17 16:49:20.837608",
+    "REA_HORA": "4:49 PM"
+}
+
+###
+POST http://localhost:9000/form-visitas HTTP/1.1
+Content-Type: application/json
+
+{
+    "VIS_ESPECIALISTA": 1,
+    "VIS_CLIENTE": 1,
+    "VIS_MOTIVO_CONTACTO": 3,
+    "VIS_FECHA": "2022-11-25",
+    "VIS_HORA_INICIO": "13:25:45",
+    "VIS_HORA_FIN": "13:33:45",
+    "VIS_OBSERVACION": "hola"
+}
+
+###
+PUT http://localhost:9000/api/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "user_nombre": "@@@@@@@@@@@",
+    "user_cargo": "@@@@@@@@@@@"
+}
+
+
+###
+PUT http://localhost:9000/form-visitas/updateMAIN/50 HTTP/1.1
+Content-Type: application/json
+
+{
+    "VIS_REAL": 1
+}

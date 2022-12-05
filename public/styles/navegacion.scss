@@ -1,0 +1,53 @@
+@use 'vars';
+
+.navLateral{
+    grid-column: 1/2;
+    grid-row: 1/4;
+    height: 100%;
+    width: 100%;
+    background-color: var(--blanco);
+    border-right: 1px solid var(--gris);
+}
+.contPorfile{
+    padding: var(--padding);
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: repeat(3,auto);
+    align-items: center;
+    justify-items: start;
+    border-bottom: 1px solid var(--gris);
+    img{
+        background-color: white;
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        grid-column: 1/2;
+        grid-row: 1/4;
+    }
+    .userInfo{
+        grid-column: 2/3;
+        grid-row: 2/3;
+        p{
+            font-weight: 400;
+        }
+        i{
+            font-weight: 300;
+        }
+    }
+}
+
+.contOption{
+    width: 100%;
+    background-color: var(--blanco);
+    display: grid;
+    align-items: center;
+    padding: var(--padding);
+    font-size: 14px;
+    font-weight: 300;
+    &:hover{
+        cursor: pointer;
+        background-color: var(--gris);
+        font-weight: 400;
+    }
+}
