@@ -11,7 +11,7 @@ App.render(
     <BrowserRouter>
         <Routes>
             <Route exact path='/login' element={<Login />} />
-            <Route exact path='/home' element={<DashBoard/>} />
+            <Route exact path='/' element={<DashBoard/>} />
             <Route exact path='*' element={<Page404/>} />
         </Routes>
     </BrowserRouter>

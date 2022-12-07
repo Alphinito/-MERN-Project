@@ -2,6 +2,7 @@ const express = require('express')
 const mysql = require('mysql')
 const myconn = require('express-myconnection')
 const morgan = require('morgan')
+const cors = require('cors');
 const path = require('path')
 const RoutLogin = require('./routes/login')
 const RoutFormVisitas = require('./routes/formVisitas')
@@ -27,6 +28,7 @@ dbOptions = {//-------------------------------------------|CONEXIÓN A DB|
 app.use(myconn(mysql, dbOptions, 'single'))//-----|CONN DB|
 app.use(express.json())//-------------------|CAN READ JSON|
 app.use(morgan('dev'))//--------------|SEE DATA IN CONSOLE|
+app.use(cors({ origin: 'http://localhost:8080'}))
 
 //--------------------------------------------------------|ROUTES|
 //
