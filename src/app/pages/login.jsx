@@ -7,7 +7,7 @@ import CompFormularioLogin from "../components/login/formulario.jsx"
 const Login = () => {
     return (
         <MainLoginLayout>
-            <SingleLayout color="#F9F9F9">
+            <SingleLayout color="#F9F9F9" colorBorder="#eeeeee">
                 <CompLogo/>
             </SingleLayout>
             <SingleLayout>

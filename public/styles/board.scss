@@ -43,6 +43,7 @@
 }
 .BoardChart1,.BoardChart2,.BoardChart3,.BoardChart4,.BoardChart5,.BoardChart6,.BoardChart7{
     cursor: pointer;
+    width: 100%;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     display: grid;
@@ -50,44 +51,41 @@
     align-items: center;
     justify-items: center;
 }
+.BoardChart1,.BoardChart2,.BoardChart3,.BoardChart4,.BoardChart5{
+    grid-template-rows: 4fr 1fr;
+    align-items: stretch;
+    max-height: 150px;
+}
 .BoardChart1{
     grid-column: 1/2;
     grid-row: 1/2;
-    grid-template-rows: 4fr 1fr;
-    align-items: stretch;
 }
 .BoardChart2{
     grid-column: 2/3;
     grid-row: 1/2;
     align-items: end;
-    grid-template-rows: 4fr 1fr;
-    align-items: stretch;
 }
 .BoardChart3{
     grid-column: 3/4;
     grid-row: 1/2;
-    grid-template-rows: 4fr 1fr;
-    align-items: stretch;
 }
 .BoardChart4{
     grid-column: 4/5;
     grid-row: 1/2;
-    grid-template-rows: 4fr 1fr;
-    align-items: stretch;
 }
 .BoardChart5{
     grid-column: 5/6;
     grid-row: 1/2;
-    grid-template-rows: 4fr 1fr;
-    align-items: stretch;
 }
 .BoardChart6{
+    max-height: 280px;
     grid-column: 1/4;
     grid-row: 2/3;
-    height: min-content;
+    height: max-content;
 }
 .BoardChart7{
+    max-height: 280px;
     grid-column: 4/6;
     grid-row: 2/3;
-    height: min-content;
+    height: max-content;
 }

@@ -5,13 +5,15 @@ import BoardConentLayout from "../containers/BoardContent"
 import BoardConentDetailLayout from "../containers/BoardContentDetail"
 import TitlePage from "../components/home/TitlePage.jsx"
 import BackArrow from "../components/backArrow"
+import OptionsBar from "../components/home/optionsBar"
 import BoardChart from "../components/home/BoardChart"
 import ChartDetail from "../compounds/ChartDetail"
 import ChartPreview from "../components/home/ChartPreview"
 import ChartPreview2 from "../components/home/ChartPreview2"
 import '../../../public/styles/board.scss'
-import ChartTitle from '../components/home/ChartTitle'
-import { apiGET } from "../../hooks/methods"
+import Cookies from "universal-cookie/cjs/Cookies"
+
+const cookies = new Cookies
 
 const DashBoard = () => {
 
@@ -69,16 +71,10 @@ const DashBoard = () => {
     }
 
     useEffect(()=>{
-        async function p(){
-          const userData = await apiGET('log/1000810187/clave')
-            var nombre = userData[0]['EMP_NOMBRE']
-            var cargo = userData[0]['EMP_CARGO']
-            console.log(userData)
-            setUserInfo([nombre,cargo])
+            setUserInfo([cookies.get('EMP_NOMBRE',{}),cookies.get('EMP_CARGO',{})])
             setLoading(false)
             console.log(loading)
-        }
-        p()
+
     },[])
 
     return (
@@ -119,6 +115,7 @@ const DashBoard = () => {
             :
             <BoardConentDetailLayout>
             </BoardConentDetailLayout>}
+            <OptionsBar/>
         </MainBoardLayout>
     )
 }

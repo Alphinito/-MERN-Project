@@ -49,6 +49,8 @@
     &:hover{
         cursor: pointer;
         background-color: var(--gris);
-        color: var(--azul);
+        p{
+            color: var(--azul);
+        }
     }
 }

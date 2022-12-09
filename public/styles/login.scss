@@ -21,12 +21,5 @@
     background-color: #F9F9F9;
     align-items: center;
     justify-items: center;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
-}
-.der_cont_login input{
-    outline: none;
-    border-radius: 8px;
-    border: none;
-    margin: 1rem;
-    padding: 8px;
+    border: 1px solid var(--gris);
 }
