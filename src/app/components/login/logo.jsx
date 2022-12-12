@@ -6,7 +6,7 @@ const CompLogo = () => {
     return (
         <div className="contLogo">
             <img src={logo} alt="Buscando ...Logo..." />
-            <h1 className="bigTitleCursive">Bienvenido al DASHBOARD de SMARTS SELLS</h1>
+            <h1 className="bigTitleCursive">Bienvenido al DASHBOARD de SMARTS SELLER</h1>
         </div>
     )
 }

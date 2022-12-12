@@ -1,5 +1,5 @@
 ###
-GET http://localhost:9000/log/1000810187/clave HTTP/1.1
+GET http://localhost:9000/log/2/clave2 HTTP/1.1
 
 ###
 GET http://localhost:9000/clientes HTTP/1.1

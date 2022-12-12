@@ -1,10 +1,10 @@
 import React from "react"
 import '../../../../public/styles/navegacion.scss'
 
-const NavOptions = (porps) => {
+const NavOptions = (props) => {
     return (
-        <div className="contOption">
-            <p className="optionText">{porps.text}</p>
+        <div className="contOption" onClick={props.clickFunction}>
+            <p className="optionText">{props.text}</p>
         </div>
     )
 }
