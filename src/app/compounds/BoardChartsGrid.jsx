@@ -8,10 +8,11 @@ import { MainContext } from "../context/mainContext"
 
 const BoardChartsGrid = () => {
 
-    const {view,setView,title,setTitle,classVal,setClasVal} = useContext(MainContext)
+    const {view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
 
     const handleClick = (chart)=>{
         setClasVal('TitlePageContCenter')
+        setShowBackArrow(true)
         switch (chart) {
             case 1:
                 setView('Chart1')
@@ -49,6 +50,7 @@ const BoardChartsGrid = () => {
                 break;
         
             default:
+                setShowBackArrow(false)
                 setClasVal('TitlePageCont')
                 setView('')
                 setTitle('Dashboard')

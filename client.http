@@ -2,7 +2,7 @@
 GET http://localhost:9000/log/2/clave2 HTTP/1.1
 
 ###
-GET http://localhost:9000/clientes HTTP/1.1
+GET http://localhost:9000/equipos HTTP/1.1
 
 ###
 GET http://localhost:9000/charts/graphic1/1/2 HTTP/1.1

@@ -24,13 +24,20 @@ export const LogIn = async(user, pass) => {
             cookies.set('EMP_LIDER', res.EMP_LIDER, {path: "/"})
             cookies.set('EMP_ZONA', res.EMP_ZONA, {path: "/"})
             cookies.set('EMP_CIUDAD', res.EMP_CIUDAD, {path: "/"})
-
             cookies.set('CAR_CARGO', res.CAR_CARGO, {path: "/"})
             cookies.set('EMP_CELULAR', res.EMP_CELULAR, {path: "/"})
             cookies.set('EQU_EQUIPO', res.EQU_EQUIPO, {path: "/"})
             cookies.set('EQU_LIDER', res.EQU_LIDER, {path: "/"})
             cookies.set('ZON_ZONA', res.ZON_ZONA, {path: "/"})
             cookies.set('CIU_CIUDAD', res.CIU_CIUDAD, {path: "/"})
+
+            if(res.EMP_CARGO == 1){
+                cookies.set('ROL', 'ADMIN', {path: "/"})
+            }else if(res.EMP_CARGO == 3){
+                cookies.set('ROL', 'MERCADEO', {path: "/"})
+            }else if(res.EMP_CARGO == 4){
+                cookies.set('ROL', 'VENTAS', {path: "/"})
+            }
             
             window.location.href="./"
         }else{

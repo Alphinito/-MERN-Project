@@ -8,6 +8,7 @@ export const MainProvider = ({children}) => {
     const  [view,setView] = useState('')
     const  [title,setTitle] = useState('Dashboard')
     const  [classVal,setClasVal] = useState('TitlePageCont')
+    const  [showBackArrow, setShowBackArrow] = useState(false)
 
 
     return(
@@ -19,7 +20,9 @@ export const MainProvider = ({children}) => {
             title,
             setTitle,
             classVal,
-            setClasVal
+            setClasVal,
+            showBackArrow,
+            setShowBackArrow
         }}>
             {children}
         </MainContext.Provider>

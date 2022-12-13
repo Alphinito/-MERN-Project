@@ -2,12 +2,13 @@ import React, {useContext} from "react"
 import img from '../../../assets/turn-back.png';
 import { MainContext } from "../context/mainContext";
 
-const BackArrow = (props) => {
+const BackArrow = () => {
 
-    const {view,setView,title,setTitle,classVal,setClasVal} = useContext(MainContext)
+    const {view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
 
     const handleClick = ()=>{
 
+        setShowBackArrow(false)
         setClasVal('TitlePageCont')
         setView('')
         setTitle('Dashboard')
