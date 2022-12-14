@@ -17,6 +17,7 @@ const RoutCharts = require('./routes/charts')
 const RoutEquipos = require('./routes/equipos')
 const RoutZonas = require('./routes/zonas')
 const RoutCiudades = require('./routes/ciudades')
+const RoutChartsWeb = require('./routes/chartsWeb')
 const app = express()
 
 app.set('port', process.env.port || 9000)//---------------|PUERTO DEL SERVER|
@@ -35,7 +36,6 @@ app.use(morgan('dev'))//--------------|SEE DATA IN CONSOLE|
 app.use(cors({origin: 'http://localhost:8080'}))//|PERMISO|
 
 //--------------------------------------------------------|ROUTES|
-//
 app.use('/log', RoutLogin)//------------------------|Login|
 app.use('/empleados', RoutEmpleados)//----------|Empleados|
 app.use('/form-visitas', RoutFormVisitas)//---|FormVisitas|
@@ -49,6 +49,7 @@ app.use('/charts', RoutCharts)//-------------------|Charts|
 app.use('/equipos', RoutEquipos)//----------------|Equipos|
 app.use('/zonas', RoutZonas)//----------------------|Zonas|
 app.use('/ciudades', RoutCiudades)//-------------|Ciudades|
+app.use('/charts-web', RoutChartsWeb)//--------|Charts-web|
 
 //--------------------------------------------------------|STATIC FILES|
 app.use(express.static(path.join(__dirname, 'public')))

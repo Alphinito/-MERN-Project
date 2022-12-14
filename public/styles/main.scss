@@ -91,6 +91,7 @@ body{
         width: 100%;
         border: none;
         border-bottom: 1px solid var(--gris-oscuro);
+        border-left: 1px solid var(--gris-oscuro);
         outline: none;
         margin: 1rem;
         padding: 8px;
@@ -98,10 +99,29 @@ body{
         transition: border-color .4s ease;
         background-color: transparent;
         &:focus{
-            border-bottom-color: var(--azul);
+            border-color: var(--azul);
         }
         &::placeholder{
             color: var(--azul);
             font-weight: 300;
         }
+    }
+    .Select1{
+        width: 100%;
+        margin: 1rem;
+        padding: 8px;
+        border-radius: 5px;
+        outline: none;
+        border-left: none;
+        border-top: none;
+        background-color: transparent;
+        color: var(--azul);
+        font-weight: 300;
+        &:focus{
+            border-color: var(--azul);
+        }   
+    }
+    .optionSelect1{
+        background-color: var(--negro);
+        color: var(--blanco);
     }

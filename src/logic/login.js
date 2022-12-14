@@ -4,7 +4,7 @@ const cookies = new Cookies();
 
 export const LogIn = async(user, pass) => {
 
-    await apiGET(`log/${user}/${pass}`)
+    await apiGET(`log/web/${user}/${pass}`)
     .then(response => {
         return response
     })

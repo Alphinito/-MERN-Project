@@ -12,6 +12,7 @@ import Cookies from "universal-cookie/cjs/Cookies"
 import BoardChartsGrid from "../compounds/BoardChartsGrid"
 import { ValSesionActual } from "../../logic/login"
 import { MainContext } from "../context/mainContext"
+import { VisitasRealizadas } from "../../logic/filter"
 
 const DashBoard = () => {
 

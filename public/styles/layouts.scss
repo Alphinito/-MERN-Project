@@ -48,9 +48,19 @@
     grid-column: 2/3;
     grid-row: 2/3;
     width: 100%;
+    height: max-content;
+    background-color: var(--blanco);
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: 1fr 180px;
+}
+.ChartDetailContent{//------------------------------------------------------------------------|ChartDetailContent|
+    width: 100%;
     height: 100%;
-    background-color: white;
-    grid-template-rows: 1fr 2fr;
+    grid-column: 1/2;
+    grid-row: 2/3;
+    display: grid;
+    justify-items: center;
+    align-items: center;
 }
 .OptionsBarLayout{//--------------------------------------------------------------------------|OptionsBarLayout|
     margin-top: 30px;

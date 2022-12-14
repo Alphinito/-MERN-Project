@@ -1,0 +1,49 @@
+@use 'vars';
+
+.Result{
+    display: grid;
+    width: 100%;
+    margin: 1rem;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    grid-template-columns: 1fr 100px;
+    background-color: white;
+    font-size: 14px;
+    font-weight: 300;
+    &:hover{
+        background-color: var(--gris);
+    }
+}
+
+.TimeIndicator{
+    position: relative;
+    height: max-content;
+    padding: 1rem;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    width: 100%;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3,1fr);
+    .mensual,.anual,.historico{
+        height: 120px;
+        width: 120px;
+        border-radius: 20px;
+        border: 1px solid var(--gris-oscuro);
+    }
+    .mensual{
+        grid-row: 1/2;
+        background-color: var(--IMA-rainbow-icons-2-hex);
+    }
+    .anual{
+        grid-row: 2/3;
+        background-color: var(--IMA-rainbow-icons-3-hex);
+    }
+    .historico{
+        grid-row: 3/4;
+        background-color: var(--IMA-rainbow-icons-4-hex);
+    }
+}

@@ -8,10 +8,11 @@ const cookies = new Cookies();
 
 const NavegacionLateral = (porps) => {
 
-    const {view,setView,title,setTitle,classVal,setClasVal} = useContext(MainContext)
+    const {view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
 
     const handleClick = (navOption)=>{
         setClasVal('TitlePageCont')
+        setShowBackArrow(false)
         switch (navOption) {
             case 1:
                 setView('Chart1')
