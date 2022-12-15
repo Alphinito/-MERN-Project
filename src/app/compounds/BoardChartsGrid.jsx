@@ -6,12 +6,12 @@ import ChartPreview2 from "../components/home/ChartPreview2"
 import '../../../public/styles/board.scss' //SCSS
 import { MainContext } from "../context/mainContext"
 import { ChartsContext } from "../context/chartsContext"
-import { VisitasRealizadas } from "../../logic/filter"
+import { VisitasRealizadasMes } from "../../logic/filter"
 
 const BoardChartsGrid = () => {
 
     const {view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
-    const {visitasMes,setVisitasMes} = useContext(ChartsContext)
+    const {dataVisitas,visitasMes,setVisitasMes} = useContext(ChartsContext)
 
     const handleClick = (chart)=>{
         setClasVal('TitlePageContCenter')
@@ -63,16 +63,13 @@ const BoardChartsGrid = () => {
     }
 
     useEffect(()=>{
-        async function  bridgueForDeclineError(){
-            setVisitasMes(await VisitasRealizadas(null,null))
-        }
-        bridgueForDeclineError()
+        setVisitasMes(VisitasRealizadasMes(dataVisitas))
     },[])
 
     return (
         <BoardConentLayout>
             <BoardChart clickFuncion={() => {handleClick(1)}} title="Visitas este mes" color="#9FC3EC" scss="BoardChart1">
-                <div className="ChartIndicativeContent"><h2 className="bigTitle">visitasMes</h2></div> 
+                <div className="ChartIndicativeContent"><h2 className="bigTitle">{visitasMes}</h2></div> 
             </BoardChart>
             <BoardChart clickFuncion={() => {handleClick(2)}} title="Clientes < atención" color="#FF958A" scss="BoardChart2">
             <div className="ChartIndicativeContent"><h2 className="bigTitle">156</h2></div> 

@@ -1,49 +1,24 @@
 import { apiGET } from "../hooks/methods"
 
-export const VisitasRealizadas = async(group, time) => {
 
-    const currentDate = new Date();
+export const VisitasRealizadas = async() => {
     const response = await apiGET('charts-web/num-visitas-reales-main')
-    let responseFilter
+    console.log(response)
+    return response
+}
 
-    if(group || time){//------------------------------|SI EXISTE ALGUNO DE LOS PARAMETROS|
-
-        if(group){//-----------------------|ONLY GROUP|
-
-            if(group == 'equipo'){
-                responseFilter = response.filter(res => res.EMP_EQUIPO == group)
-
-            }else if(group == 'ciudad'){
-
-            }else if(group == 'zona'){
-
-            }else if(group == 'individual'){
-
-            }else{
-
-            }
-        }
-        if(time){//-------------------------|ONLY TIME|
-
-            if(time == 'historico'){
-
-            }else if(time == 'anual'){
-
-            }else if(time == 'mensual'){
-
-            }else if(time == 'hoy'){
-
-            }else{
-                
-            }
-
-        }
-        if(group && time){
-
-        }
-
-    }else{//------------------------------------------|GLOBAL (si no existen parametros)|
-        responseFilter = response.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
-    }
-    return responseFilter
+export const VisitasRealizadasAnual = (data) => {
+    const currentDate = new Date();
+    const responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
+    return responseFilter.length
+}
+export const VisitasRealizadasMes = (data) => {
+    const currentDate = new Date();
+    const responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
+    return responseFilter.length
+}
+export const VisitasRealizadasDia = (data) => {
+    const currentDate = new Date();
+    const responseFilter = data.filter(res => new Date(res.REA_FECHA).getDay() == new Date(currentDate).getDay())
+    return responseFilter.length
 }

@@ -12,17 +12,26 @@ import Cookies from "universal-cookie/cjs/Cookies"
 import BoardChartsGrid from "../compounds/BoardChartsGrid"
 import { ValSesionActual } from "../../logic/login"
 import { MainContext } from "../context/mainContext"
+import { ChartsContext } from "../context/chartsContext"
 import { VisitasRealizadas } from "../../logic/filter"
+
 
 const DashBoard = () => {
 
     const cookies = new Cookies
     const {loading,setLoading,view,setView,title,setTitle,classVal,setClasVal,showBackArrow,setShowBackArrow} = useContext(MainContext)
+    const {DataVisitas, setDataVisitas} = useContext(ChartsContext)
 
     useLayoutEffect(()=>{
-        ValSesionActual('dashBoard')
-        setLoading(false)
+        async function  bridgueForDeclineError(){
+            ValSesionActual('dashBoard')
+            const dataa = await VisitasRealizadas()
+            setDataVisitas(dataa)
+            setLoading(false)
+        }
+        bridgueForDeclineError()
     },[])
+    console.log(DataVisitas)
 
     return (
         <MainBoardLayout>

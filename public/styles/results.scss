@@ -29,10 +29,16 @@
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3,1fr);
     .mensual,.anual,.historico{
-        height: 120px;
+        display: grid;
+        padding: 1rem;
+        align-items: center;
+        justify-items: center;
+        height: min-content;
         width: 120px;
         border-radius: 20px;
-        border: 1px solid var(--gris-oscuro);
+        border: 1px solid var(--azul);
+        grid-template-rows: min-content min-content;
+        gap: 5px;
     }
     .mensual{
         grid-row: 1/2;
