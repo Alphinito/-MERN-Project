@@ -13,25 +13,28 @@ import BoardChartsGrid from "../compounds/BoardChartsGrid"
 import { ValSesionActual } from "../../logic/login"
 import { MainContext } from "../context/mainContext"
 import { ChartsContext } from "../context/chartsContext"
-import { VisitasRealizadas } from "../../logic/filter"
+import { VisitasRealizadas,Empleados,Equipos,Ciudades,Zonas } from "../../logic/filter"
 
 
 const DashBoard = () => {
 
     const cookies = new Cookies
     const {loading,setLoading,view,setView,title,setTitle,classVal,setClasVal,showBackArrow,setShowBackArrow} = useContext(MainContext)
-    const {DataVisitas, setDataVisitas} = useContext(ChartsContext)
+    const {setDataEmpleados, setDataEquipos, setDataZonas, setDataCiudades, dataVisitas, setDataVisitas} = useContext(ChartsContext)
 
     useLayoutEffect(()=>{
         async function  bridgueForDeclineError(){
             ValSesionActual('dashBoard')
-            const dataa = await VisitasRealizadas()
-            setDataVisitas(dataa)
+            setDataVisitas(await VisitasRealizadas())
+            setDataEmpleados(await Empleados())
+            setDataEquipos(await Equipos())
+            setDataZonas(await Zonas())
+            setDataCiudades(await Ciudades())
             setLoading(false)
         }
         bridgueForDeclineError()
     },[])
-    console.log(DataVisitas)
+    console.log(dataVisitas)
 
     return (
         <MainBoardLayout>
