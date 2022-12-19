@@ -6,31 +6,69 @@
     margin: 1rem;
     padding: 8px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    grid-template-columns: 1fr 100px;
+    grid-template-columns: 1fr min-content;
+    align-items: center;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    font-size: 14px;
+    font-weight: 300;
+    &:hover{
+        background-color: var(--gris);
+    }
+    .hoyCont{
+        display: flex;
+        flex-direction: row;
+        justify-items: center;
+        align-items: center;
+    }
+}
+.Result-ciudades{
+    display: grid;
+    width: 100%;
+    margin: 1rem;
+    padding: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    grid-template-columns: 1fr min-content;
+    align-items: center;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: contain;
+    font-size: 14px;
+    font-weight: 300;
+    &:hover{
+        background-color: var(--gris);
+    }
+    .hoyCont{
+        display: flex;
+        flex-direction: row;
+        justify-items: center;
+        align-items: center;
+    }
+}
+.Result-gobal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: min-content;
+    margin: 1rem;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     background-color: white;
     font-size: 14px;
     font-weight: 300;
     &:hover{
         background-color: var(--gris);
     }
-}
-.Result-gobal{
-    display: grid;
-
-    grid-auto-rows: max-content;
-    justify-items: center;
-    align-items: center;
-    width: 100%;
-    height: 300px;
-    margin: 1rem;
-    padding: 1rem;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    grid-template-columns: 1fr 100px;
-    background-color: white;
-    font-size: 14px;
-    font-weight: 300;
-    &:hover{
-        background-color: var(--gris);
+    .animationCont{
+        width: 300px;
+    }
+    i{
+        font-weight: 300;
+        font-size: 16px;
     }
 }
 

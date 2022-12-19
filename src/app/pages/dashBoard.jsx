@@ -20,7 +20,7 @@ const DashBoard = () => {
 
     const cookies = new Cookies
     const {loading,setLoading,view,setView,title,setTitle,classVal,setClasVal,showBackArrow,setShowBackArrow} = useContext(MainContext)
-    const {setDataEmpleados, setDataEquipos, setDataZonas, setDataCiudades, dataVisitas, setDataVisitas} = useContext(ChartsContext)
+    const {setBasedDataContext, setDataEmpleados, setDataEquipos, setDataZonas, setDataCiudades, dataVisitas, setDataVisitas} = useContext(ChartsContext)
 
     useLayoutEffect(()=>{
         async function  bridgueForDeclineError(){
@@ -33,8 +33,10 @@ const DashBoard = () => {
             setLoading(false)
         }
         bridgueForDeclineError()
+        return()=>{
+            setBasedDataContext(dataVisitas)
+        }
     },[])
-    console.log(dataVisitas)
 
     return (
         <MainBoardLayout>

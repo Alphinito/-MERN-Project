@@ -14,7 +14,7 @@ RoutChartsWeb.get('/num-visitas-reales-main', (req, res) =>{
         })
     })
 })
-//-----------------------------------------------------------------------------------|Visitas Realizadas|
+//----------------------------------------------------------------------------------------|Visitas Realizadas|
 RoutChartsWeb.get('/num-visitas-reales-main', (req, res) =>{
     req.getConnection((err, conn) => {
         if(err) return res.send(err)
@@ -31,7 +31,19 @@ RoutChartsWeb.get('/num-visitas-reales-empleado/:empleadoID',(req, res) =>{
     req.getConnection((err, conn) => {
         if(err) return res.send(err)
 
-        conn.query(`SELECT * FROM vista WHERE VIS_REAL = 1 AND VIS_CANCELADO = 0 AND VIS_ESPECIALISTA = ?`,[req.params.empleadoID],(err,rows) => {
+        conn.query(`SELECT * FROM visita WHERE VIS_REAL = 1 AND VIS_CANCELADO = 0 AND VIS_ESPECIALISTA = ?`,[req.params.empleadoID],(err,rows) => {
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+//------------------------------------------------------------------------------------|GET VISITAS POR CIUDAD|
+RoutChartsWeb.get('/num-visitas-ciudad/:ciudadID',(req, res) =>{
+    req.getConnection((err, conn) => {
+        if(err) return res.send(err)
+
+        conn.query(`SELECT VIS_ID, CLI_ID, CLI_SAP, VIS_ESPECIALISTA, EMP_ID, EMP_NOMBRE, EMP_APELLIDO, EMP_EQUIPO, EMP_ZONA, EMP_CIUDAD, EMP_CARGO,VIS_CLIENTE, VIS_MOTIVO_CONTACTO, VIS_HORA_INICIO, VIS_HORA_FIN, VIS_FECHA, REA_FECHA, REA_HORA, VIS_OBSERVACION, CLI_NOMBRE, MOT_MOTIVO, MOT_ID, REA_RESULTADO FROM visita INNER JOIN real_visita ON REA_VIS = VIS_ID INNER JOIN cliente ON VIS_CLIENTE = CLI_ID INNER JOIN motivo_contacto ON MOT_ID = VIS_MOTIVO_CONTACTO INNER JOIN empleado ON EMP_ID = VIS_ESPECIALISTA WHERE VIS_REAL = 1 AND VIS_CANCELADO = 0 AND EMP_CIUDAD = ?`,[req.params.ciudadID],(err,rows) => {
             if(err) return res.send(err)
 
             res.json(rows)

@@ -6,7 +6,7 @@ RoutEquipos.get('/', (req, res) =>{
     req.getConnection((err, conn) => {
         if(err) return res.send(err)
 
-        conn.query('SELECT EQU_ID,EQU_EQUIPO,EQU_LIDER,EMP_NOMBRE FROM equipo INNER JOIN empleado ON EQU_LIDER = EMP_ID',(err,rows) => {
+        conn.query('SELECT EQU_ID,EQU_EQUIPO,EQU_LIDER,EMP_NOMBRE,EMP_APELLIDO,EMP_ID FROM equipo INNER JOIN empleado ON EQU_LIDER = EMP_ID',(err,rows) => {
             if(err) return res.send(err)
 
             res.json(rows)
