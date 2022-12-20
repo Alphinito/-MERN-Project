@@ -56,7 +56,7 @@ const ChartDetail = () => {
                 if(!busqueda){
                     basedDataa = dataEmpleados
                 }else{
-                    basedDataa = dataEmpleados.filter(res => res.EMP_NOMBRE.toLowerCase().includes(busqueda.toLowerCase()) || res.EMP_APELLIDO.toLowerCase().includes(busqueda.toLowerCase()) || res.EMP_CEDULA.toString().toLowerCase().includes(busqueda.toLowerCase())) //FILTRO DE BUSQUEDA
+                    basedDataa = dataEmpleados.filter(res => res.EMP_NOMBRE.toLowerCase().includes(busqueda.toLowerCase()) || res.EMP_APELLIDO.toLowerCase().includes(busqueda.toLowerCase()) || res.EMP_CEDULA.toString().toLowerCase().includes(busqueda.toLowerCase()) || res.EMP_ID.toString().toLowerCase().includes(busqueda.toLowerCase()) || res.EQU_EQUIPO.toLowerCase().includes(busqueda.toLowerCase())) //FILTRO DE BUSQUEDA
                 }
                 break;
         }
@@ -79,7 +79,7 @@ const ChartDetail = () => {
             setVisitasMes(VisitasRealizadasMes(dataVisitas))
             setVisitasAnual(VisitasRealizadasAnual(dataVisitas))
             setVisitasHistorico(VisitasRealizadasMAIN(dataVisitas))
-        }else{
+        }else{//aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
             setVisitasDia(VisitasRealizadasDia(basedData))
             setVisitasMes(VisitasRealizadasMes(basedData))
             setVisitasAnual(VisitasRealizadasAnual(basedData))
@@ -98,6 +98,10 @@ const ChartDetail = () => {
         }  
     },[])
 
+    const clickFunction = e =>{
+        console.log(e.target.dataset.id)
+    }
+
     return (
         <BoardConentDetailLayout>
             <Input1 text="Busqueda..." changeFuncion={handleChange}/>
@@ -110,22 +114,29 @@ const ChartDetail = () => {
                     :currentGroupFilter == 1
                         ?
                             basedData.map( data =>(
-                                <Result SCSS="Result-ciudades" text={data.CIU_CIUDAD+ ' ('+data.CIU_ID+')'} key={data.CIU_ID}  dataDia={data.CIU_ID}/>
+                                <Result clickFunction={clickFunction} SCSS="Result-ciudades" text={data.CIU_CIUDAD+ ' ('+data.CIU_ID+')'} key={data.CIU_ID}  dataDia={data.CIU_ID}/>
                             ))
                         :currentGroupFilter == 2
                             ?
                                 basedData.map( data =>(
-                                    <Result SCSS="Result" text={data.ZON_ZONA+' ('+data.ZON_ID+')'} key={data.ZON_ID} dataDia={data.ZON_ID}/>
+                                    <Result clickFunction={clickFunction} SCSS="Result-zonas" text={data.ZON_ZONA+' ('+data.ZON_ID+')'} key={data.ZON_ID} dataDia={data.ZON_ID}/>
                                 ))
                             :currentGroupFilter == 3
                                 ?
                                     basedData.map( data =>(
-                                        <Result SCSS="Result" text={data.EQU_EQUIPO+' - Lider: '+data.EMP_NOMBRE+' '+data.EMP_APELLIDO+' ('+data.EMP_ID+')'} key={data.EQU_ID} dataDia={data.EQU_ID}/>
+                                        <Result clickFunction={clickFunction} SCSS="Result-equipos" text={data.EQU_EQUIPO+' - Lider: '+data.EMP_NOMBRE+' '+data.EMP_APELLIDO+' ('+data.EMP_ID+')'} key={data.EQU_ID} dataDia={data.EQU_ID}/>
                                     ))
                                 :currentGroupFilter == 4
                                     ?
                                         basedData.map( data =>(
-                                            <Result SCSS="Result" text={data.EMP_NOMBRE+' '+data.EMP_APELLIDO+' - '+data.EMP_CEDULA+' ('+data.CAR_CARGO+')'} key={data.EMP_ID} dataDia={data.EMP_ID}/>
+                                            <Result 
+                                                clickFunction={clickFunction} 
+                                                SCSS="Result" 
+                                                text={`${data.EMP_NOMBRE} ${data.EMP_APELLIDO} - ${data.EMP_CEDULA} (${data.EQU_EQUIPO})`} 
+                                                key={data.EMP_ID} 
+                                                dataDia={data.EMP_ID}
+                                                dataId={data.EMP_ID}
+                                            />
                                         ))
                                     :null
 

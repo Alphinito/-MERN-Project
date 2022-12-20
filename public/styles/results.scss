@@ -1,6 +1,6 @@
 @use 'vars';
 
-.Result{
+.Result,.Result-zonas,.Result-equipos,.Result-ciudades{
     display: grid;
     width: 100%;
     margin: 1rem;
@@ -9,9 +9,6 @@
     grid-template-columns: 1fr min-content;
     align-items: center;
     background-color: white;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: contain;
     font-size: 14px;
     font-weight: 300;
     &:hover{
@@ -22,9 +19,15 @@
         flex-direction: row;
         justify-items: center;
         align-items: center;
+        .NormalTextBlue{
+            padding: 0 1rem 0 1rem;
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--azul);
+        }
     }
 }
-.Result-ciudades{
+.ResultSelected{
     display: grid;
     width: 100%;
     margin: 1rem;
@@ -33,20 +36,16 @@
     grid-template-columns: 1fr min-content;
     align-items: center;
     background-color: white;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: contain;
     font-size: 14px;
     font-weight: 300;
+    border: 1px solid var(--azul);
     &:hover{
         background-color: var(--gris);
     }
-    .hoyCont{
-        display: flex;
-        flex-direction: row;
-        justify-items: center;
-        align-items: center;
-    }
+}
+
+.iconResult{
+    height: 35px;
 }
 .Result-gobal{
     display: flex;
@@ -54,6 +53,7 @@
     align-items: center;
     width: 100%;
     height: min-content;
+    min-height: 19.55rem;
     margin: 1rem;
     padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -71,7 +71,7 @@
         font-size: 16px;
     }
 }
-
+//--------------------------------------------------------------------------------------------------------------|OTRA COSA|
 .TimeIndicator{
     position: relative;
     height: max-content;
