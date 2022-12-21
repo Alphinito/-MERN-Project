@@ -11,9 +11,12 @@ import { VisitasRealizadasAnual } from "../../logic/filter"
 import { VisitasRealizadasMes } from "../../logic/filter"
 import { VisitasRealizadasDia } from "../../logic/filter"
 import { VisitasRealizadasMAIN } from "../../logic/filter"
+import Cookies from "universal-cookie/cjs/Cookies"
 
 const ChartDetail = () => {
 
+    const cookies = new Cookies
+    const rol = cookies.get('ROL',{})
     const {busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
 
     //--------------------------------------------------------------------------------------|MAIN FUNCTION FOR FILTER AND SEARCH
@@ -60,7 +63,12 @@ const ChartDetail = () => {
                 }
                 break;
         }
-        return basedDataa
+        if(rol == 'LIDER'){
+            return basedDataa.filter(res => res.EMP_EQUIPO == cookies.get('EMP_EQUIPO',{}) || res.EQU_ID == cookies.get('EMP_EQUIPO',{}))
+        }else{
+            return basedDataa
+        }
+
     }
     let basedData = filterAndSearch()//-----------------------------------------------------|VARIABLE EN LA QUE SE BASAN LOS RESULTADOS QUE SE MUESTRAN
 
@@ -104,8 +112,16 @@ const ChartDetail = () => {
 
     return (
         <BoardConentDetailLayout>
-            <Input1 text="Busqueda..." changeFuncion={handleChange}/>
-            <Select1 id="selectGroupFilter" changeFunction={handleChangeSelect}/>
+            {
+                rol == 'VENTAS'
+                    ?
+                        null
+                    :
+                        <>
+                        <Input1 text="Busqueda..." changeFuncion={handleChange}/>
+                        <Select1 id="selectGroupFilter" changeFunction={handleChangeSelect}/>
+                        </>
+            }
             <ChartDetailContent>
                 {
                     currentGroupFilter == 0
@@ -142,7 +158,13 @@ const ChartDetail = () => {
 
                 }
             </ChartDetailContent>
-            <TimeIndicator mes={visitasMes} anual={visitasAnual} dia={visitasHistorico}/>
+            {
+                currentGroupFilter == 0
+                ?
+                    <TimeIndicator mes={visitasMes} anual={visitasAnual} dia={visitasHistorico}/>
+                :
+                    null
+            }
         </BoardConentDetailLayout>
     )
 }

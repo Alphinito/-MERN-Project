@@ -31,7 +31,7 @@ RoutChartsWeb.get('/num-visitas-reales-empleado/:empleadoID',(req, res) =>{
     req.getConnection((err, conn) => {
         if(err) return res.send(err)
 
-        conn.query(`SELECT REA_FECHA FROM visita INNER JOIN real_visita ON VIS_ID = REA_VIS INNER JOIN empleado ON EMP_ID = VIS_ESPECIALISTA WHERE VIS_REAL = 1 AND VIS_CANCELADO = 0 AND VIS_ESPECIALISTA = ?`,[req.params.empleadoID],(err,rows) => {
+        conn.query(`SELECT REA_FECHA, EMP_EQUIPO FROM visita INNER JOIN real_visita ON VIS_ID = REA_VIS INNER JOIN empleado ON EMP_ID = VIS_ESPECIALISTA WHERE VIS_REAL = 1 AND VIS_CANCELADO = 0 AND VIS_ESPECIALISTA = ?`,[req.params.empleadoID],(err,rows) => {
             if(err) return res.send(err)
 
             res.json(rows)
@@ -79,7 +79,7 @@ RoutChartsWeb.get('/num-visitas-equipo/:equipoID',(req, res) =>{
     req.getConnection((err, conn) => {
         if(err) return res.send(err)
 
-        conn.query(`SELECT REA_FECHA FROM visita INNER JOIN real_visita ON VIS_ID = REA_VIS INNER JOIN empleado ON EMP_ID = VIS_ESPECIALISTA WHERE VIS_REAL = 1 AND VIS_CANCELADO = 0 AND EMP_EQUIPO = ?`,[req.params.equipoID],(err,rows) => {
+        conn.query(`SELECT REA_FECHA, EMP_EQUIPO FROM visita INNER JOIN real_visita ON VIS_ID = REA_VIS INNER JOIN empleado ON EMP_ID = VIS_ESPECIALISTA WHERE VIS_REAL = 1 AND VIS_CANCELADO = 0 AND EMP_EQUIPO = ?`,[req.params.equipoID],(err,rows) => {
             if(err) return res.send(err)
 
             res.json(rows)

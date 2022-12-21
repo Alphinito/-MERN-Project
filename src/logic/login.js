@@ -35,10 +35,12 @@ export const LogIn = async(user, pass) => {
                 cookies.set('ROL', 'ADMIN', {path: "/"})
             }else if(res.EMP_CARGO == 3){
                 cookies.set('ROL', 'MERCADEO', {path: "/"})
-            }else if(res.EMP_CARGO == 4){
+            }else if(res.EMP_LIDER == 0 && res.EMP_CARGO == 4){
                 cookies.set('ROL', 'VENTAS', {path: "/"})
+            }else if(res.EMP_LIDER == 1){
+                cookies.set('ROL', 'LIDER', {path: "/"})
             }
-            
+
             window.location.href="./"
         }else{
             alert(`UPSSSSSSSSSSSSSSSSSS ${response} |${response.length}|`)

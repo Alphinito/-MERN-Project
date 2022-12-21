@@ -1,5 +1,8 @@
 import { apiGET } from "../hooks/methods"
+import Cookies from "universal-cookie/cjs/Cookies"
 
+const cookies = new Cookies
+const rol = cookies.get('ROL',{})
 //-----------------------------------------------------------------------------------------------------------|MAIN DATA|
 export const VisitasRealizadas = async() => {//-------------------------------------------|Visitas Realizadas|
     const response = await apiGET('charts-web/num-visitas-reales-main')
@@ -24,20 +27,91 @@ export const Zonas = async() => {//---------------------------------------------
 
 //-----------------------------------------------------------------------------------------------------------|EXTRACCIÓN|
 export const VisitasRealizadasMAIN = (data) => {
-    return data.length
+    let responseFilter = {}
+    switch (rol) {
+        case 'ADMIN':
+            responseFilter = data
+            break;
+
+        case 'MERCADEO':
+            responseFilter = data
+            break;
+
+        case 'LIDER':
+            responseFilter = data.filter(res => res.EMP_EQUIPO == cookies.get('EMP_EQUIPO',{}))
+            break;
+
+        case 'VENTAS':
+            responseFilter = data.filter(res => res.EMP_ID == cookies.get('EMP_ID',{}))
+            break;
+    }
+    return responseFilter.length
 }
 export const VisitasRealizadasAnual = (data) => {
     const currentDate = new Date();
-    const responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
+    let responseFilter = {}
+    switch (rol) {
+        case 'ADMIN':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
+            break;
+
+        case 'MERCADEO':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
+            break;
+
+        case 'LIDER':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear() && res.EMP_EQUIPO == cookies.get('EMP_EQUIPO',{}))
+            break;
+
+        case 'VENTAS':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear() && res.EMP_ID == cookies.get('EMP_ID',{}))
+            break;
+    }
     return responseFilter.length
 }
+
 export const VisitasRealizadasMes = (data) => {
     const currentDate = new Date();
-    const responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
+    let responseFilter = {}
+    switch (rol) {
+        case 'ADMIN':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
+            break;
+
+        case 'MERCADEO':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
+            break;
+
+        case 'LIDER':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && res.EMP_EQUIPO == cookies.get('EMP_EQUIPO',{}))
+            break;
+
+        case 'VENTAS':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && res.EMP_ID == cookies.get('EMP_ID',{}))
+            break;
+    }
     return responseFilter.length
 }
+
 export const VisitasRealizadasDia = (data) => {
     const currentDate = new Date();
-    const responseFilter = data.filter(res => new Date(res.REA_FECHA).getDate() == new Date(currentDate).getDate())
+    let responseFilter = {}
+    switch (rol) {
+        case 'ADMIN':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getDate() == new Date(currentDate).getDate() && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
+            break;
+
+        case 'MERCADEO':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getDate() == new Date(currentDate).getDate() && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
+            break;
+
+        case 'LIDER':
+            responseFilter = data.filter(res =>  new Date(res.REA_FECHA).getDate() == new Date(currentDate).getDate() && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && res.EMP_EQUIPO == cookies.get('EMP_EQUIPO',{}))
+            break;
+
+        case 'VENTAS':
+            responseFilter = data.filter(res => new Date(res.REA_FECHA).getDate() == new Date(currentDate).getDate() && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && res.EMP_ID == cookies.get('EMP_ID',{}))
+            break;
+    }
     return responseFilter.length
 }

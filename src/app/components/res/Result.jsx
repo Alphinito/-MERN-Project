@@ -2,15 +2,19 @@ import React, {useState} from "react"
 import '../../../../public/styles/results.scss'
 import Lottie from "lottie-react"
 import globalAnimation from '../../../../assets/animations/global.json'
+import myData from '../../../../assets/animations/myData.json'
 import { apiGET } from "../../../hooks/methods"
 import { VisitasRealizadasDia, VisitasRealizadasMes, VisitasRealizadasAnual, VisitasRealizadasMAIN } from "../../../logic/filter"
 import citys from '../../../../assets/city.png'
 import zone from '../../../../assets/zone.png'
 import teams from '../../../../assets/group.png'
 import unic from '../../../../assets/unic.png'
+import Cookies from "universal-cookie/cjs/Cookies"
 
 const Result = (props) => {
 
+    const cookies = new Cookies
+    const rol = cookies.get('ROL',{})
     const [dias,setDias] = useState(0)
     const [mes,setMes] = useState(0)
     const [anual,setAnual] = useState(0)
@@ -59,14 +63,35 @@ const Result = (props) => {
             {
                 props.SCSS == 'Result-gobal'
                 ?
-                    <div className={props.SCSS} onClick={props.clickFunction}>
-                        <p className="bigTitle">Datos Globales</p>
-                            <div className="animationCont">
-                                <Lottie animationData={globalAnimation}/>
+                    rol == 'VENTAS'
+                        ?
+                            <div className={props.SCSS} onClick={props.clickFunction}>
+                                <p className="bigTitle">Mis datos</p>
+                                    <div className="animationCont">
+                                        <Lottie animationData={myData} loop={false}/>
+                                    </div>
+                                <i className="">{props.text}</i>
+                                <h2 className="bigTitle">{props.dia}</h2>
                             </div>
-                        <i className="">{props.text}</i>
-                        <h2 className="bigTitle">{props.dia}</h2>
-                    </div>
+                        :rol == 'LIDER'
+                            ?
+                                <div className={props.SCSS} onClick={props.clickFunction}>
+                                    <p className="bigTitle">Mis Equipos</p>
+                                        <div className="animationCont">
+                                            <Lottie animationData={globalAnimation}/>
+                                        </div>
+                                    <i className="">{props.text}</i>
+                                <h2 className="bigTitle">{props.dia}</h2>
+                                </div>
+                            :
+                                <div className={props.SCSS} onClick={props.clickFunction}>
+                                    <p className="bigTitle">Datos Globales</p>
+                                        <div className="animationCont">
+                                            <Lottie animationData={globalAnimation}/>
+                                        </div>
+                                    <i className="">{props.text}</i>
+                                    <h2 className="bigTitle">{props.dia}</h2>
+                                </div>
                 :props.SCSS == 'Result-ciudades'
                     ?
                         <div className={props.SCSS} onClick={props.clickFunction}>
@@ -74,6 +99,12 @@ const Result = (props) => {
                             <div className="hoyCont">
                                 <p className="Text">Hoy:</p>
                                 <p className="NormalTextBlue">{dias||'...'}</p>
+                                <p className="Text">Mes:</p>
+                                <p className="NormalTextBlue">{mes||'...'}</p>
+                                <p className="Text">Año:</p>
+                                <p className="NormalTextBlue">{anual||'...'}</p>
+                                <p className="Text">Todo:</p>
+                                <p className="NormalTextBlue">{historico||'...'}</p>
                                 <img src={citys} alt="icon" className="iconResult" />
                             </div>
                             
@@ -85,6 +116,12 @@ const Result = (props) => {
                                 <div className="hoyCont">
                                     <p className="Text">Hoy:</p>
                                     <p className="NormalTextBlue">{dias||'...'}</p>
+                                    <p className="Text">Mes:</p>
+                                    <p className="NormalTextBlue">{mes||'...'}</p>
+                                    <p className="Text">Año:</p>
+                                    <p className="NormalTextBlue">{anual||'...'}</p>
+                                    <p className="Text">Todo:</p>
+                                    <p className="NormalTextBlue">{historico||'...'}</p>
                                     <img src={zone} alt="icon" className="iconResult" />
                                 </div>
                                 
@@ -96,6 +133,12 @@ const Result = (props) => {
                                     <div className="hoyCont">
                                         <p className="Text">Hoy:</p>
                                         <p className="NormalTextBlue">{dias||'...'}</p>
+                                        <p className="Text">Mes:</p>
+                                        <p className="NormalTextBlue">{mes||'...'}</p>
+                                        <p className="Text">Año:</p>
+                                        <p className="NormalTextBlue">{anual||'...'}</p>
+                                        <p className="Text">Todo:</p>
+                                        <p className="NormalTextBlue">{historico||'...'}</p>
                                         <img src={teams} alt="icon" className="iconResult" />
                                     </div>
                                     
