@@ -33,7 +33,8 @@ dbOptions = {//-------------------------------------------|CONEXIÓN A DB|
 app.use(myconn(mysql, dbOptions, 'single'))//-----|CONN DB|
 app.use(express.json())//-------------------|CAN READ JSON|
 app.use(morgan('dev'))//--------------|SEE DATA IN CONSOLE|
-app.use(cors({origin: 'http://localhost:8080'}))//|PERMISO|
+app.use(cors({origin: '*'}))//----------|PERMISO DE ACCESO|
+
 
 //--------------------------------------------------------|ROUTES|
 app.use('/log', RoutLogin)//------------------------|Login|

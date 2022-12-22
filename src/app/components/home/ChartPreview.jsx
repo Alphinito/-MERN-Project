@@ -1,4 +1,5 @@
 import React,{ useMemo } from "react"
+import { ChartsContext } from "../../context/chartsContext"
 import '../../../../public/styles/board.scss'
 import '../../../../public/styles/layouts.scss'
 import {
@@ -24,6 +25,9 @@ ChartJS.register(
   Legend,
   Filler
 );
+
+//const {dataVisitas} = useContext(ChartsContext)
+
 const scores = [6, 5, 5, 5, 3, 4, 6, 4, 5];
 const scores2 = [1, 3, 2, 2, 4, 4, 5, 3, 2];
 const labels = [100, 200, 300, 400, 500, 600, 700];
@@ -50,7 +54,7 @@ const ChartPreview = (props) => {
     return {
       datasets: [
         {
-          label: "Mis datos",
+          label: "Planificaciones",
           data: scores,
           tension: 0.3,
           borderColor: "rgb(75, 192, 192)",
@@ -59,11 +63,12 @@ const ChartPreview = (props) => {
           backgroundColor: "rgba(75, 192, 192, 0.3)",
         },
         {
-          label: "Mis datos (2)",
+          label: "Realizadas",
           tension: 0.3,
           data: scores2,
           borderColor: "green",
           backgroundColor: "rgba(0, 255, 0, 0.3)",
+          pointBackgroundColor: "green",
           pointRadius: 6,
         },
       ],

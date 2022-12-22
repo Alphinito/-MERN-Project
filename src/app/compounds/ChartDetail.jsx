@@ -63,11 +63,8 @@ const ChartDetail = () => {
                 }
                 break;
         }
-        if(rol == 'LIDER'){
-            return basedDataa.filter(res => res.EMP_EQUIPO == cookies.get('EMP_EQUIPO',{}) || res.EQU_ID == cookies.get('EMP_EQUIPO',{}))
-        }else{
-            return basedDataa
-        }
+        
+        return basedDataa
 
     }
     let basedData = filterAndSearch()//-----------------------------------------------------|VARIABLE EN LA QUE SE BASAN LOS RESULTADOS QUE SE MUESTRAN

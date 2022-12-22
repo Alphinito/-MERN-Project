@@ -87,15 +87,23 @@ const NavegacionLateral = (porps) => {
                         <NavOptions text="Euipos" clickFunction={()=>{handleClick(3)}}/>
                         <NavOptions text="Zonas" clickFunction={()=>{handleClick(4)}}/>
                         </>
-                    :cookies.get('ROL',{}) == 'VENTAS' //VENTAS
+                    :cookies.get('ROL',{}) == 'LIDER' //VENTAS
                         ?
                             //AQUÍ MISMO VALIDAR SI ES LIDER Y AÑADIR OPCIONES
                             <>
                             <NavOptions text="Planificar" clickFunction={()=>{handleClick(5)}}/>
                             <NavOptions text="Registrar" clickFunction={()=>{handleClick(6)}}/>
                             <NavOptions text="Seguimiento" clickFunction={()=>{handleClick(7)}}/>
-                            </>
-                        :null
+                        </>
+                        :cookies.get('ROL',{}) == 'VENTAS' //VENTAS
+                            ?
+                                //AQUÍ MISMO VALIDAR SI ES LIDER Y AÑADIR OPCIONES
+                                <>
+                                <NavOptions text="Planificar" clickFunction={()=>{handleClick(5)}}/>
+                                <NavOptions text="Registrar" clickFunction={()=>{handleClick(6)}}/>
+                                <NavOptions text="Seguimiento" clickFunction={()=>{handleClick(7)}}/>
+                                </>
+                            :null
 
             }
         </section>

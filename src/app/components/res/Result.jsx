@@ -3,6 +3,7 @@ import '../../../../public/styles/results.scss'
 import Lottie from "lottie-react"
 import globalAnimation from '../../../../assets/animations/global.json'
 import myData from '../../../../assets/animations/myData.json'
+import teamAnimation from '../../../../assets/animations/team.json'
 import { apiGET } from "../../../hooks/methods"
 import { VisitasRealizadasDia, VisitasRealizadasMes, VisitasRealizadasAnual, VisitasRealizadasMAIN } from "../../../logic/filter"
 import citys from '../../../../assets/city.png'
@@ -78,7 +79,7 @@ const Result = (props) => {
                                 <div className={props.SCSS} onClick={props.clickFunction}>
                                     <p className="bigTitle">Mis Equipos</p>
                                         <div className="animationCont">
-                                            <Lottie animationData={globalAnimation}/>
+                                            <Lottie animationData={teamAnimation}/>
                                         </div>
                                     <i className="">{props.text}</i>
                                 <h2 className="bigTitle">{props.dia}</h2>
