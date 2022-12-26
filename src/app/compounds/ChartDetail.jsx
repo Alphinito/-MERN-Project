@@ -17,7 +17,7 @@ const ChartDetail = () => {
 
     const cookies = new Cookies
     const rol = cookies.get('ROL',{})
-    const {busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
+    const {busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitas, dataVisitasRealizadas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
 
     //--------------------------------------------------------------------------------------|MAIN FUNCTION FOR FILTER AND SEARCH
     function filterAndSearch(){
@@ -25,9 +25,9 @@ const ChartDetail = () => {
         switch (currentGroupFilter) {
             case '0':
                 if(!busqueda){
-                    basedDataa = dataVisitas
+                    basedDataa = dataVisitasRealizadas
                 }else{
-                    basedDataa = dataVisitas //FILTRO DE BUSQUEDA
+                    basedDataa = dataVisitasRealizadas //FILTRO DE BUSQUEDA
                 }
                 break;
 
@@ -80,10 +80,10 @@ const ChartDetail = () => {
 
     useEffect( () => {//-------------------------------------------------|UPDATE USE EFECT
         if(currentGroupFilter == '0'){
-            setVisitasDia(VisitasRealizadasDia(dataVisitas))
-            setVisitasMes(VisitasRealizadasMes(dataVisitas))
-            setVisitasAnual(VisitasRealizadasAnual(dataVisitas))
-            setVisitasHistorico(VisitasRealizadasMAIN(dataVisitas))
+            setVisitasDia(VisitasRealizadasDia(dataVisitasRealizadas))
+            setVisitasMes(VisitasRealizadasMes(dataVisitasRealizadas))
+            setVisitasAnual(VisitasRealizadasAnual(dataVisitasRealizadas))
+            setVisitasHistorico(VisitasRealizadasMAIN(dataVisitasRealizadas))
         }else{//aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
             setVisitasDia(VisitasRealizadasDia(basedData))
             setVisitasMes(VisitasRealizadasMes(basedData))
@@ -93,10 +93,10 @@ const ChartDetail = () => {
     }, [busqueda,currentGroupFilter])
 
     useEffect(()=>{//----------------------------------------------------|USE EFECT START AND END
-        setVisitasDia(VisitasRealizadasDia(dataVisitas))
-        setVisitasMes(VisitasRealizadasMes(dataVisitas))
-        setVisitasAnual(VisitasRealizadasAnual(dataVisitas))
-        setVisitasHistorico(VisitasRealizadasMAIN(dataVisitas))
+        setVisitasDia(VisitasRealizadasDia(dataVisitasRealizadas))
+        setVisitasMes(VisitasRealizadasMes(dataVisitasRealizadas))
+        setVisitasAnual(VisitasRealizadasAnual(dataVisitasRealizadas))
+        setVisitasHistorico(VisitasRealizadasMAIN(dataVisitasRealizadas))
         return()=>{//SE EJECUTA AL FINAL
             setBusqueda('')
             setCurrentGroupFilter('0')

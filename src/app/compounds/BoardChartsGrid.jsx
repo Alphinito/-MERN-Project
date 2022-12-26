@@ -11,7 +11,7 @@ import { VisitasRealizadasMes } from "../../logic/filter"
 const BoardChartsGrid = () => {
 
     const {view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
-    const {dataVisitas,visitasMes,setVisitasMes} = useContext(ChartsContext)
+    const {dataVisitas,dataVisitasRealizadas,dataVisitasPlaneadas,dataVisitasCanceladas,visitasMes,setVisitasMes} = useContext(ChartsContext)
 
     const handleClick = (chart)=>{
         setClasVal('TitlePageContCenter')
@@ -63,7 +63,7 @@ const BoardChartsGrid = () => {
     }
 
     useEffect(()=>{
-        setVisitasMes(VisitasRealizadasMes(dataVisitas))
+        setVisitasMes(VisitasRealizadasMes(dataVisitasRealizadas))
     },[])
 
     return (

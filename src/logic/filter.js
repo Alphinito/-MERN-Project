@@ -1,11 +1,8 @@
 import { apiGET } from "../hooks/methods"
-import Cookies from "universal-cookie/cjs/Cookies"
 
-const cookies = new Cookies
-const rol = cookies.get('ROL',{})
 //-----------------------------------------------------------------------------------------------------------|MAIN DATA|
-export const VisitasRealizadas = async() => {//-------------------------------------------|Visitas Realizadas|
-    const response = await apiGET('charts-web/num-visitas-reales-main')
+export const MainDataVisitas = async() => {//--------------------------------------------------------|Visitas|
+    const response = await apiGET('charts-web/visitas-main')
     return response
 }
 export const Empleados = async() => {//------------------------------------------------------------|Empleados|
@@ -26,23 +23,40 @@ export const Zonas = async() => {//---------------------------------------------
 }
 
 //-----------------------------------------------------------------------------------------------------------|EXTRACCIÓN|
-//------------------------------------------------------------------------------------------------------|MAIN|
+//------------------------------------------------------------------------------------------------------|DATA|
+//---------------------------------------------------------------------------------------|Visitas Reales|
+export const DataVisitasRealizadas = (data) => {
+    const responseFilter = data.filter(res => res.VIS_REAL == 1 && res.VIS_CANCELADO == 0)
+    return responseFilter
+}
+//---------------------------------------------------------------------------------|Visitas Planificadas|
+export const DataVisitasPlanificadas = (data) => {
+    const responseFilter = data.filter(res => res.VIS_REAL == 0 && res.VIS_CANCELADO == 0)
+    return responseFilter
+}
+//-----------------------------------------------------------------------------------|Visitas Canceladas|
+export const DataVisitasCanceladas = (data) => {
+    const responseFilter = data.filter(res => res.VIS_CANCELADO == 1)
+    return responseFilter
+}
+//--------------------------------------------------------------------------------------------------|CANTIDAD|
+//---------------------------------------------------------------------------------------------|Main|
 export const VisitasRealizadasMAIN = (data) => {
     return data.length
 }
-//-----------------------------------------------------------------------------------------------------|ANUAL|
+//--------------------------------------------------------------------------------------------|Anual|
 export const VisitasRealizadasAnual = (data) => {
     const currentDate = new Date();
     const responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
     return responseFilter.length
 }
-//---------------------------------------------------------------------------------------------------|MENSUAL|
+//------------------------------------------------------------------------------------------|Mensual|
 export const VisitasRealizadasMes = (data) => {
     const currentDate = new Date();
     const  responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
     return responseFilter.length
 }
-//-------------------------------------------------------------------------------------------------------|DIA|
+//----------------------------------------------------------------------------------------------|Dia|
 export const VisitasRealizadasDia = (data) => {
     const currentDate = new Date();
     const responseFilter = data.filter(res => new Date(res.REA_FECHA).getDate() == new Date(currentDate).getDate() && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
