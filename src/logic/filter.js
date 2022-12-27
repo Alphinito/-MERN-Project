@@ -1,9 +1,15 @@
 import { apiGET } from "../hooks/methods"
 
-//-----------------------------------------------------------------------------------------------------------|MAIN DATA|
+//-----------------------------------------------------------------------------------------------------------|GET MAIN DATA|
 export const MainDataVisitas = async() => {//--------------------------------------------------------|Visitas|
     const response = await apiGET('charts-web/visitas-main')
     return response
+}
+//--------------------------------------------------------------------------------------------|Visitas Reales|
+export const DataVisitasRealizadas =  async() => {
+    const response = await apiGET('charts-web/visitas-reales-main')
+    const responseFilter = response.filter(res => res.VIS_REAL == 1 && res.VIS_CANCELADO == 0)
+    return responseFilter
 }
 export const Empleados = async() => {//------------------------------------------------------------|Empleados|
     const response = await apiGET('empleados')
@@ -24,11 +30,6 @@ export const Zonas = async() => {//---------------------------------------------
 
 //-----------------------------------------------------------------------------------------------------------|EXTRACCIÓN|
 //------------------------------------------------------------------------------------------------------|DATA|
-//---------------------------------------------------------------------------------------|Visitas Reales|
-export const DataVisitasRealizadas = (data) => {
-    const responseFilter = data.filter(res => res.VIS_REAL == 1 && res.VIS_CANCELADO == 0)
-    return responseFilter
-}
 //---------------------------------------------------------------------------------|Visitas Planificadas|
 export const DataVisitasPlanificadas = (data) => {
     const responseFilter = data.filter(res => res.VIS_REAL == 0 && res.VIS_CANCELADO == 0)

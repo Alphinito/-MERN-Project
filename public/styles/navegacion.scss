@@ -9,6 +9,7 @@
     border-right: 1px solid var(--gris);
 }
 .contPorfile{
+    cursor: pointer;
     padding: var(--padding);
     gap: 1rem;
     display: grid;
@@ -41,6 +42,7 @@
     width: 100%;
     background-color: white;
     display: grid;
+    grid-template-columns: 1fr min-content;
     align-items: center;
     padding: var(--padding);
     font-size: 14px;
@@ -52,5 +54,9 @@
         p{
             color: var(--azul);
         }
+    }
+    .optionIcon{
+        height: 20px;
+        filter: invert(36%) sepia(3%) saturate(12%) hue-rotate(334deg) brightness(87%) contrast(88%);
     }
 }

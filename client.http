@@ -5,7 +5,7 @@ GET http://localhost:9000/log/2/clave2 HTTP/1.1
 GET http://localhost:9000/equipos HTTP/1.1
 
 ###
-GET http://localhost:9000/charts-web/num-visitas-ciudad/2 HTTP/1.1
+GET http://localhost:9000/charts-web/visitas-main HTTP/1.1
 
 ###
 GET http://localhost:9000/visitas-real/list/2 HTTP/1.1

@@ -10,6 +10,7 @@ import LoadingPage from "./loading"
 import '../../../public/styles/board.scss' //SCSS
 import Cookies from "universal-cookie/cjs/Cookies"
 import BoardChartsGrid from "../compounds/BoardChartsGrid"
+import Porfile from "../compounds/porfile"
 import { ValSesionActual } from "../../logic/login"
 import { MainContext } from "../context/mainContext"
 import { ChartsContext } from "../context/chartsContext"
@@ -22,7 +23,6 @@ const DashBoard = () => {
     const {setBasedDataContext, dataVisitas} = useContext(ChartsContext)
 
     useLayoutEffect(()=>{
-
         ValSesionActual('dashBoard')
         return()=>{
             setBasedDataContext(dataVisitas)
@@ -47,9 +47,10 @@ const DashBoard = () => {
                     :view == 'Chart1'
                         ? 
                             <ChartDetail/>
-                        :
-                            <BoardConentDetailLayout>
-                            </BoardConentDetailLayout>
+                        :view == 'Perfil'
+                            ?
+                                <Porfile/>
+                            :null
             }
             <OptionsBar/>
         </MainBoardLayout>

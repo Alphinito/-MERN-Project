@@ -1,0 +1,49 @@
+@use 'vars';
+
+.perfilInfoCont{
+    margin: 1rem;
+    height: min-content;
+    background-color: #555555;
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    align-items: center;
+    justify-items: center;
+    .perfilFotoCont{
+        display: grid;
+        justify-items: center;
+        width: min-content;
+        gap: 1rem;
+        .perfilFoto{
+            height: 180px;
+            width: 180px;
+            border-radius: 50%;
+        }
+        input{
+            color: white;
+        }
+    }
+    .perfilData{
+        .perfilDataEspecific{
+            margin-top: 1rem;
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(2,1fr);
+            grid-auto-rows: min-content;
+           p{
+                display: inline;
+            }
+            .titleData{
+                color: var(--azul);
+            }
+            .data{
+                color: white;
+                font-weight: 300;
+                font-size: 14px;
+            }
+        }
+        
+    }
+}

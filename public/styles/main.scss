@@ -81,10 +81,12 @@ body{
     }
     .BackArrow{
         height: 20px;
+        filter:  invert(36%) sepia(3%) saturate(12%) hue-rotate(334deg) brightness(87%) contrast(88%);
         cursor: pointer;
     }
     .LogOutButton{
         height: 22px;
+        filter:  invert(36%) sepia(3%) saturate(12%) hue-rotate(334deg) brightness(87%) contrast(88%);
         cursor: pointer;
     }
 //-----------------------------------------------------------------------------------------|INPUTS|

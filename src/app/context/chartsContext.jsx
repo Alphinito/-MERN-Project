@@ -32,14 +32,7 @@ export const ChartsProvider = ({children}) => {
     useEffect(()=>{
         async function  bridgueForDeclineError(){
             const visitas = await MainDataVisitas()
-            const visitasReales = await DataVisitasRealizadas(visitas)
-            console.log(`
-            444444
-            555
-            666666
-            777
-            888`)
-            console.log(visitasReales.length)
+            const visitasReales = await DataVisitasRealizadas()
             const visitasPlan = await DataVisitasPlanificadas(visitas)
             const visitasCanceladas = await DataVisitasCanceladas(visitas)
             const empleados = await Empleados()
@@ -72,9 +65,9 @@ export const ChartsProvider = ({children}) => {
 
                 case 'LIDER':
                     setDataVisitas(visitas.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
-                    setDataVisitasRealizadas(visitasReales)
-                    DataVisitasPlanificadas(visitasPlan)
-                    DataVisitasCanceladas(visitasCanceladas)
+                    setDataVisitasRealizadas(visitasReales.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
+                    DataVisitasPlanificadas(visitasPlan.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
+                    DataVisitasCanceladas(visitasCanceladas.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
                     setDataEmpleados(empleados.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
                     setDataEquipos(equipos.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
                     setDataZonas(zonas)
@@ -83,9 +76,9 @@ export const ChartsProvider = ({children}) => {
 
                 case 'VENTAS':
                     setDataVisitas(visitas.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
-                    setDataVisitasRealizadas(visitasReales)
-                    DataVisitasPlanificadas(visitasPlan)
-                    DataVisitasCanceladas(visitasCanceladas)
+                    setDataVisitasRealizadas(visitasReales.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
+                    DataVisitasPlanificadas(visitasPlan.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
+                    DataVisitasCanceladas(visitasCanceladas.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
                     break;
                 default:
                     break;

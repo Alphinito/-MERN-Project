@@ -1,7 +1,8 @@
-import React,{ useMemo } from "react"
+import React,{ useMemo, useContext } from "react"
 import { ChartsContext } from "../../context/chartsContext"
 import '../../../../public/styles/board.scss'
 import '../../../../public/styles/layouts.scss'
+import { Line } from "react-chartjs-2"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,7 +14,6 @@ import {
   Legend,
   Filler,
 } from "chart.js"
-import { Line } from "react-chartjs-2"
 
 ChartJS.register(
   CategoryScale,
@@ -26,36 +26,48 @@ ChartJS.register(
   Filler
 );
 
-//const {dataVisitas} = useContext(ChartsContext)
-
-const scores = [6, 5, 5, 5, 3, 13, 6, 4, 5, 8,6, 5, 5, 5, 3, 5, 5, 5, 3, 4, 6];
-const scores2 = [1, 3, 2, 2, 4, 4, 5, 3, 2, 4,1 ,2, 4, 4, 5];
-const labels = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
-
-const options = {
-  fill: true,
-  responsive: true,
-  scales: {
-    y: {
-      min: 0,
-    },
-  },
-  plugins: {
-    legend: {
-      display: true,
-    },
-  },
-};
-
 const ChartPreview = (props) => {
 
+  const {dataVisitasRealizadas} = useContext(ChartsContext)
 
-    const data = useMemo(function () {
+  const planeadas = []
+  for (let i = 1; i < 32 ; i++) {
+    const currentDate = new Date()
+    planeadas[i] = dataVisitasRealizadas.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && res.REA_DIRECTA == 0).length
+  }
+
+  const noPlaneadas = []
+  for (let i = 1; i < 32 ; i++) {
+    const currentDate = new Date()
+    noPlaneadas[i] = dataVisitasRealizadas.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && res.REA_DIRECTA == 1).length
+  }
+
+  const labels = ['00','01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+
+  const options = {
+    fill: true,
+    responsive: true,
+    scales: {
+      y: {
+        min: 0,
+      },
+      x: {
+        min: 1
+      }
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+    },
+  };
+
+  const data = useMemo(function () {
     return {
       datasets: [
         {
-          label: "Planificaciones",
-          data: scores,
+          label: "Planificadas",
+          data: planeadas,
           tension: 0.3,
           borderColor: "rgb(75, 192, 192)",
           pointRadius: 6,
@@ -63,9 +75,9 @@ const ChartPreview = (props) => {
           backgroundColor: "rgba(75, 192, 192, 0.3)",
         },
         {
-          label: "Realizadas",
+          label: "No planificadas",
           tension: 0.3,
-          data: scores2,
+          data: noPlaneadas,
           borderColor: "green",
           backgroundColor: "rgba(0, 255, 0, 0.3)",
           pointBackgroundColor: "green",

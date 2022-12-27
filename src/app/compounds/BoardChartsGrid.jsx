@@ -83,7 +83,7 @@ const BoardChartsGrid = () => {
             <BoardChart clickFuncion={() => {handleClick(5)}} title="% de cancelaciones" color="#9FC3EC" scss="BoardChart5">
             <div className="ChartIndicativeContent"><h2 className="bigTitle">156</h2></div> 
             </BoardChart>
-            <BoardChart clickFuncion={() => {handleClick(6)}} title="Porcentaje de cumplimiento" color="#9FC3EC" scss="BoardChart6">
+            <BoardChart clickFuncion={() => {handleClick(6)}} title="Planificación de visitas" color="#9FC3EC" scss="BoardChart6">
                 <ChartPreview/>
             </BoardChart>
             <BoardChart clickFuncion={() => {handleClick(7)}} title="Clasificación de resultados" color="#9FC3EC" scss="BoardChart7">
