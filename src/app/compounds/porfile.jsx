@@ -1,10 +1,26 @@
-import React from "react"
+import React, {useState} from "react"
 import noPhoto from '../../../assets/user.jpg'
 import SingleLayout from "../containers/SingleLayout"
 import '../../../public/styles/porfile.scss' //SCSS
 import Cookies from "universal-cookie"
+import CompButton1 from "../components/Button1"
 
 const Porfile = () => {
+
+    const [img, setImg] = useState()
+
+    const handleChange = e => {
+        setImg(e.target.files[0])
+    }
+    const handleSend = () => {
+        const formatData = new FormData()
+        formatData.append('EMP_FOTO',img)
+        !img
+        ?
+            alert('Cargue su imagen primero')
+        :
+            null
+    }
 
     const cookies = new Cookies();
 
@@ -15,7 +31,8 @@ const Porfile = () => {
             <div className="perfilInfoCont">
                 <div className="perfilFotoCont">
                     <img src={noPhoto} alt="" className="perfilFoto" />
-                    <input type="file" name="" id="" />
+                    <input onChange={handleChange} type="file" name="" id="" />
+                    <CompButton1 clickFunction={handleSend} text='Actualizar foto'/>
                 </div>
                 <div className="perfilData">
                     <p className="Title">{`${cookies.get('EMP_NOMBRE',{})} ${cookies.get('EMP_APELLIDO',{})}`}</p>
@@ -30,7 +47,6 @@ const Porfile = () => {
                         <p className="titleData">Equipo: <p className="data">{cookies.get('EQU_EQUIPO',{})}</p> </p>
                         <p className="titleData">Lider: <p className="data">{cookies.get('EMP_LIDER',{})}</p> </p>
                     </div>
-
                 </div>
             </div>
         </SingleLayout>

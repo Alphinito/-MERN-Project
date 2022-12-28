@@ -4,7 +4,7 @@ import { MainContext } from "../context/mainContext";
 
 const BackArrow = () => {
 
-    const {view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
+    const {setShowOptions,view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
 
     const handleClick = ()=>{
 
@@ -12,6 +12,7 @@ const BackArrow = () => {
         setClasVal('TitlePageCont')
         setView('')
         setTitle('Dashboard')
+        setShowOptions(true)
 
     }
         

@@ -5,6 +5,7 @@ export const MainContext = createContext()
 export const MainProvider = ({children}) => {
 
     const  [loading,setLoading] = useState(true)
+    const  [showOptions,setShowOptions] = useState(true)
     const  [view,setView] = useState('')
     const  [title,setTitle] = useState('Dashboard')
     const  [classVal,setClasVal] = useState('TitlePageCont')
@@ -13,16 +14,12 @@ export const MainProvider = ({children}) => {
 
     return(
         <MainContext.Provider value={{
-            loading,
-            setLoading,
-            view,
-            setView,
-            title,
-            setTitle,
-            classVal,
-            setClasVal,
-            showBackArrow,
-            setShowBackArrow
+            loading,setLoading,
+            showOptions,setShowOptions,
+            view,setView,
+            title,setTitle,
+            classVal,setClasVal,
+            showBackArrow,setShowBackArrow
         }}>
             {children}
         </MainContext.Provider>

@@ -6,6 +6,7 @@ import TitlePage from "../components/home/TitlePage.jsx"
 import BackArrow from "../components/backArrow"
 import OptionsBar from "../components/home/optionsBar"
 import ChartDetail from "../compounds/ChartDetail"
+import ChartDetail6 from "../compounds/ChartDetail6"
 import LoadingPage from "./loading"
 import '../../../public/styles/board.scss' //SCSS
 import Cookies from "universal-cookie/cjs/Cookies"
@@ -19,7 +20,7 @@ import { ChartsContext } from "../context/chartsContext"
 const DashBoard = () => {
 
     const cookies = new Cookies
-    const {loading,view,title,classVal,showBackArrow} = useContext(MainContext)
+    const {showOptions,loading,view,title,classVal,showBackArrow} = useContext(MainContext)
     const {setBasedDataContext, dataVisitas} = useContext(ChartsContext)
 
     useLayoutEffect(()=>{
@@ -47,12 +48,20 @@ const DashBoard = () => {
                     :view == 'Chart1'
                         ? 
                             <ChartDetail/>
-                        :view == 'Perfil'
+                        :view == 'Chart6'
                             ?
-                                <Porfile/>
-                            :null
+                                <ChartDetail6/>
+                            :view == 'Perfil'
+                                ?
+                                    <Porfile/>
+                                :null
             }
-            <OptionsBar/>
+            {
+               showOptions
+               ?<OptionsBar/>
+               :null
+            }
+            
         </MainBoardLayout>
     )
 }

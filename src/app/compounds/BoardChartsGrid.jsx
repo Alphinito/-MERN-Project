@@ -10,7 +10,7 @@ import { VisitasRealizadasMes } from "../../logic/filter"
 
 const BoardChartsGrid = () => {
 
-    const {view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
+    const {setShowOptions,view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
     const {dataVisitas,dataVisitasRealizadas,dataVisitasPlaneadas,dataVisitasCanceladas,visitasMes,setVisitasMes} = useContext(ChartsContext)
 
     const handleClick = (chart)=>{
@@ -20,6 +20,7 @@ const BoardChartsGrid = () => {
             case 1:
                 setView('Chart1')
                 setTitle('Total de visitas realizadas')
+                setShowOptions(false)
                 break;
 
             case 2:
@@ -43,6 +44,7 @@ const BoardChartsGrid = () => {
                 break;
 
             case 6:
+                setShowOptions(false)
                 setView('Chart6')
                 setTitle('Cumplimiento a la planificación')
                 break;
@@ -84,7 +86,7 @@ const BoardChartsGrid = () => {
             <div className="ChartIndicativeContent"><h2 className="bigTitle">156</h2></div> 
             </BoardChart>
             <BoardChart clickFuncion={() => {handleClick(6)}} title="Planificación de visitas" color="#9FC3EC" scss="BoardChart6">
-                <ChartPreview/>
+                <ChartPreview dataa={dataVisitasRealizadas}/>
             </BoardChart>
             <BoardChart clickFuncion={() => {handleClick(7)}} title="Clasificación de resultados" color="#9FC3EC" scss="BoardChart7">
                 <ChartPreview2/>

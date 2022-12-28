@@ -1,5 +1,13 @@
 @use 'vars';
-
+//------------------------------------------------------
+.resultsCont{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+    overflow-x: hidden;
+}
+//------------------------------------------------------
 .Result,.Result-zonas,.Result-equipos,.Result-ciudades{
     display: grid;
     width: 100%;
@@ -48,7 +56,7 @@
     height: 35px;
     filter:  invert(36%) sepia(3%) saturate(12%) hue-rotate(334deg) brightness(87%) contrast(88%);
 }
-.Result-gobal{
+.Result-gobal{//-------------------------------------|Global
     display: flex;
     flex-direction: column;
     align-items: center;

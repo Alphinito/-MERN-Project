@@ -21,43 +21,64 @@ const Result = (props) => {
     const [anual,setAnual] = useState(0)
     const [historico,setHistorico] = useState(0)
 
-    async function bridge(){
-        let data
-        switch (props.SCSS) {
-            case 'Result-ciudades':
-                data = await apiGET(`charts-web/num-visitas-ciudad/${props.dataDia}`)
-                setDias(VisitasRealizadasDia(data))
-                setMes(VisitasRealizadasMes(data))
-                setAnual(VisitasRealizadasAnual(data))
-                setHistorico(VisitasRealizadasMAIN(data))
-                break;
-    
-            case 'Result-zonas':
-                data = await apiGET(`charts-web/num-visitas-zona/${props.dataDia}`)
-                setDias(VisitasRealizadasDia(data))
-                setMes(VisitasRealizadasMes(data))
-                setAnual(VisitasRealizadasAnual(data))
-                setHistorico(VisitasRealizadasMAIN(data))
-                break;
-    
-            case 'Result-equipos':
-                data = await apiGET(`charts-web/num-visitas-equipo/${props.dataDia}`)
-                setDias(VisitasRealizadasDia(data))
-                setMes(VisitasRealizadasMes(data))
-                setAnual(VisitasRealizadasAnual(data))
-                setHistorico(VisitasRealizadasMAIN(data))
-                break;
-    
-            case 'Result':
-                data = await apiGET(`charts-web/num-visitas-reales-empleado/${props.dataDia}`)
-                setDias(VisitasRealizadasDia(data))
-                setMes(VisitasRealizadasMes(data))
-                setAnual(VisitasRealizadasAnual(data))
-                setHistorico(VisitasRealizadasMAIN(data))
-                break;
+    if(props.dataDia){
+        async function bridge(){
+            let data
+            switch (props.SCSS) {
+                case 'Result-ciudades':
+                    data = await apiGET(`charts-web/num-visitas-ciudad/${props.dataDia}`)
+                    setDias(VisitasRealizadasDia(data))
+                    setMes(VisitasRealizadasMes(data))
+                    setAnual(VisitasRealizadasAnual(data))
+                    setHistorico(VisitasRealizadasMAIN(data))
+                    break;
+        
+                case 'Result-zonas':
+                    data = await apiGET(`charts-web/num-visitas-zona/${props.dataDia}`)
+                    setDias(VisitasRealizadasDia(data))
+                    setMes(VisitasRealizadasMes(data))
+                    setAnual(VisitasRealizadasAnual(data))
+                    setHistorico(VisitasRealizadasMAIN(data))
+                    break;
+        
+                case 'Result-equipos':
+                    data = await apiGET(`charts-web/num-visitas-equipo/${props.dataDia}`)
+                    setDias(VisitasRealizadasDia(data))
+                    setMes(VisitasRealizadasMes(data))
+                    setAnual(VisitasRealizadasAnual(data))
+                    setHistorico(VisitasRealizadasMAIN(data))
+                    break;
+        
+                case 'Result':
+                    data = await apiGET(`charts-web/num-visitas-reales-empleado/${props.dataDia}`)
+                    setDias(VisitasRealizadasDia(data))
+                    setMes(VisitasRealizadasMes(data))
+                    setAnual(VisitasRealizadasAnual(data))
+                    setHistorico(VisitasRealizadasMAIN(data))
+                    break;
+            }
         }
+        bridge()
     }
-    bridge()
+    
+    let prueba = (icon) => {
+        if(props.dataDia){
+            return (
+                <div className="hoyCont">
+                    <p className="Text">Hoy:</p>
+                    <p className="NormalTextBlue">{dias}</p>
+                    <p className="Text">Mes:</p>
+                    <p className="NormalTextBlue">{mes}</p>
+                    <p className="Text">Año:</p>
+                    <p className="NormalTextBlue">{anual}</p>
+                    <p className="Text">Todo:</p>
+                    <p className="NormalTextBlue">{historico}</p>
+                    <img src={icon} alt="icon" className="iconResult" />
+                </div>
+            )  
+        }
+
+    }
 
     return (
         <>
@@ -97,69 +118,25 @@ const Result = (props) => {
                     ?
                         <div className={props.SCSS} onClick={props.clickFunction}>
                             <p className="Text">{props.text}</p>
-                            <div className="hoyCont">
-                                <p className="Text">Hoy:</p>
-                                <p className="NormalTextBlue">{dias||'...'}</p>
-                                <p className="Text">Mes:</p>
-                                <p className="NormalTextBlue">{mes||'...'}</p>
-                                <p className="Text">Año:</p>
-                                <p className="NormalTextBlue">{anual||'...'}</p>
-                                <p className="Text">Todo:</p>
-                                <p className="NormalTextBlue">{historico||'...'}</p>
-                                <img src={citys} alt="icon" className="iconResult" />
-                            </div>
-                            
+                            {prueba(citys)}
                         </div>
                     :props.SCSS == 'Result-zonas'
                         ?
                             <div className={props.SCSS} onClick={props.clickFunction}>
                                 <p className="Text">{props.text}</p>
-                                <div className="hoyCont">
-                                    <p className="Text">Hoy:</p>
-                                    <p className="NormalTextBlue">{dias||'...'}</p>
-                                    <p className="Text">Mes:</p>
-                                    <p className="NormalTextBlue">{mes||'...'}</p>
-                                    <p className="Text">Año:</p>
-                                    <p className="NormalTextBlue">{anual||'...'}</p>
-                                    <p className="Text">Todo:</p>
-                                    <p className="NormalTextBlue">{historico||'...'}</p>
-                                    <img src={zone} alt="icon" className="iconResult" />
-                                </div>
-                                
+                                {prueba(zone)}
                             </div>
                         :props.SCSS == 'Result-equipos'
                             ?
                                 <div className={props.SCSS} onClick={props.clickFunction}>
                                     <p className="Text">{props.text}</p>
-                                    <div className="hoyCont">
-                                        <p className="Text">Hoy:</p>
-                                        <p className="NormalTextBlue">{dias||'...'}</p>
-                                        <p className="Text">Mes:</p>
-                                        <p className="NormalTextBlue">{mes||'...'}</p>
-                                        <p className="Text">Año:</p>
-                                        <p className="NormalTextBlue">{anual||'...'}</p>
-                                        <p className="Text">Todo:</p>
-                                        <p className="NormalTextBlue">{historico||'...'}</p>
-                                        <img src={teams} alt="icon" className="iconResult" />
-                                    </div>
-                                    
+                                    {prueba(teams)}
                                 </div>
                             :props.SCSS == 'Result'
                                 ?
                                     <div className={props.SCSS} onClick={props.clickFunction} data-id={props.dataId}>
                                         <p className="Text">{props.text}</p>
-                                        <div className="hoyCont">
-                                            <p className="Text">Hoy:</p>
-                                            <p className="NormalTextBlue">{dias||'...'}</p>
-                                            <p className="Text">Mes:</p>
-                                            <p className="NormalTextBlue">{mes||'...'}</p>
-                                            <p className="Text">Año:</p>
-                                            <p className="NormalTextBlue">{anual||'...'}</p>
-                                            <p className="Text">Todo:</p>
-                                            <p className="NormalTextBlue">{historico||'...'}</p>
-                                            <img src={unic} alt="icon" className="iconResult" />
-                                        </div>
-                                        
+                                        {prueba(unic)}
                                     </div>
                                 :null
             }

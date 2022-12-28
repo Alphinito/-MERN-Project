@@ -16,7 +16,7 @@ const cookies = new Cookies();
 
 const NavegacionLateral = (porps) => {
 
-    const {view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
+    const {setShowOptions,view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
 
     const handleClick = (navOption)=>{
         setClasVal('TitlePageCont')
@@ -43,7 +43,7 @@ const NavegacionLateral = (porps) => {
                 break;
 
             case 5://---------------------------------|Planificación
-                setView('Chart2')
+                setView('Chart6')
                 setTitle('Planificación de visitas')
                 break;
 
@@ -63,6 +63,7 @@ const NavegacionLateral = (porps) => {
                 break;
         
             default://---------------------------------|Dashboard
+                setShowOptions(true)
                 setClasVal('TitlePageCont')
                 setView('')
                 setTitle('Dashboard')
