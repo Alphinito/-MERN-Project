@@ -10,8 +10,10 @@ export const ChartsProvider = ({children}) => {
     const cookies = new Cookies
     const rol = cookies.get('ROL',{})
     const {setLoading} = useContext(MainContext)
+    const currentFecha = new Date()
 
     //--------------------------------------------------------------------------------------------|CREACIÓN DE VAR PARA ENVIAR AL CONTEXTO
+    //data
     const [basedDataContext,setBasedDataContext] = useState({})
     const [dataVisitas,setDataVisitas] = useState({})
     const [dataVisitasRealizadas,setDataVisitasRealizadas] = useState({})
@@ -21,8 +23,13 @@ export const ChartsProvider = ({children}) => {
     const [dataEquipos,setDataEquipos] = useState({})
     const [dataZonas,setDataZonas] = useState({})
     const [dataCiudades,setDataCiudades] = useState({})
+    //filter
     const [currentGroupFilter,setCurrentGroupFilter] = useState('0')
     const [busqueda,setBusqueda] = useState('')
+    const [currentDayFilter, setCurrentDayFilter] = useState(currentFecha.getDate())
+    const [currentMonthFilter, setCurrentMonthFilter] = useState(currentFecha.getMonth())
+    const [currentYearFilter, setCurrentYearFilter] = useState(currentFecha.getFullYear())
+    //results
     const [visitasAnual,setVisitasAnual] = useState(0)
     const [visitasMes,setVisitasMes] = useState(0)
     const [visitasDia,setVisitasDia] = useState(0)
@@ -90,6 +97,7 @@ export const ChartsProvider = ({children}) => {
 
     return(
         <ChartsContext.Provider value={{
+            //data
             basedDataContext,setBasedDataContext,
             dataVisitas,setDataVisitas,
             dataVisitasRealizadas,setDataVisitasRealizadas,
@@ -99,8 +107,13 @@ export const ChartsProvider = ({children}) => {
             dataEquipos,setDataEquipos,
             dataZonas,setDataZonas,
             dataCiudades,setDataCiudades,
+            //filter
             busqueda,setBusqueda,
             currentGroupFilter,setCurrentGroupFilter,
+            currentDayFilter, setCurrentDayFilter,
+            currentMonthFilter, setCurrentMonthFilter,
+            currentYearFilter, setCurrentYearFilter,
+            //results
             visitasHistorico,setVisitasHistorico,
             visitasAnual,setVisitasAnual,
             visitasMes,setVisitasMes,

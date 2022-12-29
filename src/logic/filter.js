@@ -29,13 +29,13 @@ export const Zonas = async() => {//---------------------------------------------
 }
 
 //-----------------------------------------------------------------------------------------------------------|EXTRACCIÓN|
-//------------------------------------------------------------------------------------------------------|DATA|
-//---------------------------------------------------------------------------------|Visitas Planificadas|
+//--------------------------------------------------------------------------------------------------|  DATA  |
+//-----------------------------------------------------------------------------|Visitas Planificadas|
 export const DataVisitasPlanificadas = (data) => {
     const responseFilter = data.filter(res => res.VIS_REAL == 0 && res.VIS_CANCELADO == 0)
     return responseFilter
 }
-//-----------------------------------------------------------------------------------|Visitas Canceladas|
+//-------------------------------------------------------------------------------|Visitas Canceladas|
 export const DataVisitasCanceladas = (data) => {
     const responseFilter = data.filter(res => res.VIS_CANCELADO == 1)
     return responseFilter
@@ -46,20 +46,35 @@ export const VisitasRealizadasMAIN = (data) => {
     return data.length
 }
 //--------------------------------------------------------------------------------------------|Anual|
-export const VisitasRealizadasAnual = (data) => {
+export const VisitasRealizadasAnual = (data,año) => {
     const currentDate = new Date();
-    const responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
+    let responseFilter
+    if(!año){
+        responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
+    }else{
+        responseFilter = data.filter(res => new Date(res.REA_FECHA).getFullYear() == año)
+    }
     return responseFilter.length
 }
 //------------------------------------------------------------------------------------------|Mensual|
-export const VisitasRealizadasMes = (data) => {
+export const VisitasRealizadasMes = (data,mes,año) => {
     const currentDate = new Date();
-    const  responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
+    let responseFilter
+    if(!mes && !año){
+        responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
+    }else{
+        responseFilter = data.filter(res => new Date(res.REA_FECHA).getMonth() == mes && new Date(res.REA_FECHA).getFullYear() == año)
+    }
     return responseFilter.length
 }
 //----------------------------------------------------------------------------------------------|Dia|
-export const VisitasRealizadasDia = (data) => {
+export const VisitasRealizadasDia = (data,dia,mes,año) => {
     const currentDate = new Date();
-    const responseFilter = data.filter(res => new Date(res.REA_FECHA).getDate() == new Date(currentDate).getDate() && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth())
+    let responseFilter
+    if(!dia && !mes && !año){
+        responseFilter = data.filter(res => new Date(res.REA_FECHA).getDate() == new Date(currentDate).getDate() && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear())
+    }else{
+        responseFilter = data.filter(res => new Date(res.REA_FECHA).getDate() == dia && new Date(res.REA_FECHA).getMonth() == mes && new Date(res.REA_FECHA).getFullYear() == año)
+    }
     return responseFilter.length
 }

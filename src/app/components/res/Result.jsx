@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useState, useEffect } from "react"
 import '../../../../public/styles/results.scss'
 import Lottie from "lottie-react"
 import globalAnimation from '../../../../assets/animations/global.json'
@@ -11,6 +11,7 @@ import zone from '../../../../assets/zone.png'
 import teams from '../../../../assets/group.png'
 import unic from '../../../../assets/unic.png'
 import Cookies from "universal-cookie/cjs/Cookies"
+import Select2 from "../select2"
 
 const Result = (props) => {
 
@@ -27,36 +28,24 @@ const Result = (props) => {
             switch (props.SCSS) {
                 case 'Result-ciudades':
                     data = await apiGET(`charts-web/num-visitas-ciudad/${props.dataDia}`)
-                    setDias(VisitasRealizadasDia(data))
-                    setMes(VisitasRealizadasMes(data))
-                    setAnual(VisitasRealizadasAnual(data))
-                    setHistorico(VisitasRealizadasMAIN(data))
                     break;
         
                 case 'Result-zonas':
                     data = await apiGET(`charts-web/num-visitas-zona/${props.dataDia}`)
-                    setDias(VisitasRealizadasDia(data))
-                    setMes(VisitasRealizadasMes(data))
-                    setAnual(VisitasRealizadasAnual(data))
-                    setHistorico(VisitasRealizadasMAIN(data))
                     break;
         
                 case 'Result-equipos':
                     data = await apiGET(`charts-web/num-visitas-equipo/${props.dataDia}`)
-                    setDias(VisitasRealizadasDia(data))
-                    setMes(VisitasRealizadasMes(data))
-                    setAnual(VisitasRealizadasAnual(data))
-                    setHistorico(VisitasRealizadasMAIN(data))
                     break;
         
                 case 'Result':
                     data = await apiGET(`charts-web/num-visitas-reales-empleado/${props.dataDia}`)
-                    setDias(VisitasRealizadasDia(data))
-                    setMes(VisitasRealizadasMes(data))
-                    setAnual(VisitasRealizadasAnual(data))
-                    setHistorico(VisitasRealizadasMAIN(data))
                     break;
             }
+            setDias(VisitasRealizadasDia(data,props.diaFilter,props.mesFilter,props.añoFilter))
+            setMes(VisitasRealizadasMes(data,props.mesFilter,props.añoFilter))
+            setAnual(VisitasRealizadasAnual(data,props.añoFilter))
+            setHistorico(VisitasRealizadasMAIN(data))
         }
         bridge()
     }
@@ -65,7 +54,7 @@ const Result = (props) => {
         if(props.dataDia){
             return (
                 <div className="hoyCont">
-                    <p className="Text">Hoy:</p>
+                    <p className="Text">Día:</p>
                     <p className="NormalTextBlue">{dias}</p>
                     <p className="Text">Mes:</p>
                     <p className="NormalTextBlue">{mes}</p>
@@ -92,7 +81,7 @@ const Result = (props) => {
                                     <div className="animationCont">
                                         <Lottie animationData={myData} loop={false}/>
                                     </div>
-                                <i className="">{props.text}</i>
+                                <i className="">{props.text} <Select2 dateTipe='dia' changeFunction={props.changeFunctionDia}/></i>
                                 <h2 className="bigTitle">{props.dia}</h2>
                             </div>
                         :rol == 'LIDER'
@@ -102,7 +91,7 @@ const Result = (props) => {
                                         <div className="animationCont">
                                             <Lottie animationData={teamAnimation}/>
                                         </div>
-                                    <i className="">{props.text}</i>
+                                    <i className="">{props.text} <Select2 dateTipe='dia' changeFunction={props.changeFunctionDia}/></i>
                                 <h2 className="bigTitle">{props.dia}</h2>
                                 </div>
                             :
@@ -111,7 +100,7 @@ const Result = (props) => {
                                         <div className="animationCont">
                                             <Lottie animationData={globalAnimation}/>
                                         </div>
-                                    <i className="">{props.text}</i>
+                                    <i className="">{props.text} <Select2 dateTipe='dia' changeFunction={props.changeFunctionDia}/></i>
                                     <h2 className="bigTitle">{props.dia}</h2>
                                 </div>
                 :props.SCSS == 'Result-ciudades'

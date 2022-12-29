@@ -108,8 +108,8 @@ body{
             font-weight: 300;
         }
     }
-    .Select1{
-        width: 100%;
+    .Select1,.Select2{
+        width: 94%;
         margin: 1rem;
         padding: 8px;
         border-radius: 5px;
@@ -122,6 +122,9 @@ body{
         &:focus{
             border-color: var(--azul);
         }   
+    }
+    .Select2{
+        width: min-content;
     }
     .optionSelect1{
         background-color: var(--negro);

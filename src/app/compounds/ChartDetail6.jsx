@@ -142,7 +142,9 @@ const ChartDetail6 = () => {
             {
                 currentGroupFilter == 0
                 ?
-                    <TimeIndicator mes={visitasMes} anual={visitasAnual} dia={visitasHistorico}/>
+                    <TimeIndicator 
+                        showData={false}
+                    />
                 :currentGroupFilter == 1
                     ?
                         <div className="resultsCont">

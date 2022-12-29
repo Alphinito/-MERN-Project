@@ -7,17 +7,14 @@ import ChartDetailContent from "../containers/ChartDetailContent"
 import Result from "../components/res/Result"
 import TimeIndicator from "../components/res/TimeIndicator"
 import { ChartsContext } from "../context/chartsContext"
-import { VisitasRealizadasAnual } from "../../logic/filter"
-import { VisitasRealizadasMes } from "../../logic/filter"
-import { VisitasRealizadasDia } from "../../logic/filter"
-import { VisitasRealizadasMAIN } from "../../logic/filter"
+import { VisitasRealizadasMAIN,VisitasRealizadasAnual,VisitasRealizadasMes,VisitasRealizadasDia } from "../../logic/filter"
 import Cookies from "universal-cookie/cjs/Cookies"
 
 const ChartDetail = () => {
 
     const cookies = new Cookies
     const rol = cookies.get('ROL',{})
-    const {busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitas, dataVisitasRealizadas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
+    const {currentDayFilter, setCurrentDayFilter,currentMonthFilter, setCurrentMonthFilter,currentYearFilter, setCurrentYearFilter,busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitas, dataVisitasRealizadas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
 
     //--------------------------------------------------------------------------------------|MAIN FUNCTION FOR FILTER AND SEARCH
     function filterAndSearch(){
@@ -77,20 +74,29 @@ const ChartDetail = () => {
     const handleChange = async e => {
         setBusqueda(e.target.value)
     }
+    const handleChangeDias = async e => {
+        setCurrentDayFilter(e.target.value)
+    }
+    const handleChangeMeses = async e => {
+        setCurrentMonthFilter(e.target.value)
+    }
+    const handleChangeAños = async e => {
+        setCurrentYearFilter(e.target.value)
+    }
 
     useEffect( () => {//-------------------------------------------------|UPDATE USE EFECT
         if(currentGroupFilter == '0'){
-            setVisitasDia(VisitasRealizadasDia(dataVisitasRealizadas))
-            setVisitasMes(VisitasRealizadasMes(dataVisitasRealizadas))
-            setVisitasAnual(VisitasRealizadasAnual(dataVisitasRealizadas))
+            setVisitasDia(VisitasRealizadasDia(dataVisitasRealizadas,currentDayFilter,currentMonthFilter,currentYearFilter))
+            setVisitasMes(VisitasRealizadasMes(dataVisitasRealizadas,currentMonthFilter,currentYearFilter))
+            setVisitasAnual(VisitasRealizadasAnual(dataVisitasRealizadas,currentYearFilter))
             setVisitasHistorico(VisitasRealizadasMAIN(dataVisitasRealizadas))
         }else{//aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-            setVisitasDia(VisitasRealizadasDia(basedData))
-            setVisitasMes(VisitasRealizadasMes(basedData))
-            setVisitasAnual(VisitasRealizadasAnual(basedData))
+            setVisitasDia(VisitasRealizadasDia(basedData,currentDayFilter,currentMonthFilter,currentYearFilter))
+            setVisitasMes(VisitasRealizadasMes(basedData,currentMonthFilter,currentYearFilter))
+            setVisitasAnual(VisitasRealizadasAnual(basedData,currentYearFilter))
             setVisitasHistorico(VisitasRealizadasMAIN(basedData))
         }
-    }, [busqueda,currentGroupFilter])
+    }, [busqueda,currentGroupFilter,currentDayFilter,currentMonthFilter,currentYearFilter])
 
     useEffect(()=>{//----------------------------------------------------|USE EFECT START AND END
         setVisitasDia(VisitasRealizadasDia(dataVisitasRealizadas))
@@ -98,8 +104,12 @@ const ChartDetail = () => {
         setVisitasAnual(VisitasRealizadasAnual(dataVisitasRealizadas))
         setVisitasHistorico(VisitasRealizadasMAIN(dataVisitasRealizadas))
         return()=>{//SE EJECUTA AL FINAL
+            const currentFecha = new Date()
             setBusqueda('')
             setCurrentGroupFilter('0')
+            setCurrentDayFilter(currentFecha.getDate())
+            setCurrentMonthFilter(currentFecha.getMonth())
+            setCurrentYearFilter(currentFecha.getFullYear())
         }  
     },[])
 
@@ -123,21 +133,54 @@ const ChartDetail = () => {
                 {
                     currentGroupFilter == 0
                     ?
-                        <Result SCSS="Result-gobal" text="VISITAS REALIZADAS HOY" dia={visitasDia}/>
+                        <Result 
+                            SCSS="Result-gobal" 
+                            text="VISITAS REALIZADAS EN EL DÍA:" 
+                            dia={visitasDia} 
+                            changeFunctionDia={handleChangeDias}
+                        />
+
                     :currentGroupFilter == 1
                         ?
                             basedData.map( data =>(
-                                <Result clickFunction={clickFunction} SCSS="Result-ciudades" text={data.CIU_CIUDAD+ ' ('+data.CIU_ID+')'} key={data.CIU_ID}  dataDia={data.CIU_ID}/>
+                                <Result 
+                                    clickFunction={clickFunction} 
+                                    SCSS="Result-ciudades" 
+                                    text={data.CIU_CIUDAD+ ' ('+data.CIU_ID+')'} 
+                                    key={data.CIU_ID}  
+                                    dataDia={data.CIU_ID}
+                                    diaFilter={currentDayFilter}
+                                    mesFilter={currentMonthFilter}
+                                    añoFilter={currentYearFilter}
+                                />
                             ))
                         :currentGroupFilter == 2
                             ?
                                 basedData.map( data =>(
-                                    <Result clickFunction={clickFunction} SCSS="Result-zonas" text={data.ZON_ZONA+' ('+data.ZON_ID+')'} key={data.ZON_ID} dataDia={data.ZON_ID}/>
+                                    <Result 
+                                        clickFunction={clickFunction} 
+                                        SCSS="Result-zonas" 
+                                        text={data.ZON_ZONA+' ('+data.ZON_ID+')'} 
+                                        key={data.ZON_ID} 
+                                        dataDia={data.ZON_ID}
+                                        diaFilter={currentDayFilter}
+                                        mesFilter={currentMonthFilter}
+                                        añoFilter={currentYearFilter}
+                                    />
                                 ))
                             :currentGroupFilter == 3
                                 ?
                                     basedData.map( data =>(
-                                        <Result clickFunction={clickFunction} SCSS="Result-equipos" text={data.EQU_EQUIPO+' - Lider: '+data.EMP_NOMBRE+' '+data.EMP_APELLIDO+' ('+data.EMP_ID+')'} key={data.EQU_ID} dataDia={data.EQU_ID}/>
+                                        <Result 
+                                            clickFunction={clickFunction} 
+                                            SCSS="Result-equipos" 
+                                            text={data.EQU_EQUIPO+' - Lider: '+data.EMP_NOMBRE+' '+data.EMP_APELLIDO+' ('+data.EMP_ID+')'} 
+                                            key={data.EQU_ID} 
+                                            dataDia={data.EQU_ID}
+                                            diaFilter={currentDayFilter}
+                                            mesFilter={currentMonthFilter}
+                                            añoFilter={currentYearFilter}
+                                        />
                                     ))
                                 :currentGroupFilter == 4
                                     ?
@@ -149,19 +192,25 @@ const ChartDetail = () => {
                                                 key={data.EMP_ID} 
                                                 dataDia={data.EMP_ID}
                                                 dataId={data.EMP_ID}
+                                                diaFilter={currentDayFilter}
+                                                mesFilter={currentMonthFilter}
+                                                añoFilter={currentYearFilter}
                                             />
                                         ))
                                     :null
 
                 }
             </ChartDetailContent>
-            {
-                currentGroupFilter == 0
-                ?
-                    <TimeIndicator mes={visitasMes} anual={visitasAnual} dia={visitasHistorico}/>
-                :
-                    null
-            }
+
+            <TimeIndicator 
+                mes={visitasMes} 
+                changeFunctionMes={handleChangeMeses}
+                anual={visitasAnual} 
+                changeFunctionAño={handleChangeAños}
+                dia={visitasHistorico}
+                changeFunctionDia={handleChangeDias}
+            />
+
         </BoardConentDetailLayout>
     )
 }
