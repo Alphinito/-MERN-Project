@@ -130,3 +130,7 @@ body{
         background-color: var(--negro);
         color: var(--blanco);
     }
+    .contSelectsFila{
+        display: flex;
+        flex-direction: row;
+    }

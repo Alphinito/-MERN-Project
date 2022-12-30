@@ -86,7 +86,7 @@ const BoardChartsGrid = () => {
             <div className="ChartIndicativeContent"><h2 className="bigTitle">156</h2></div> 
             </BoardChart>
             <BoardChart clickFuncion={() => {handleClick(6)}} title="Planificación de visitas" color="#9FC3EC" scss="BoardChart6">
-                <ChartPreview dataa={dataVisitasRealizadas}/>
+                <ChartPreview dataa={dataVisitasRealizadas} title='Este mes' titleSize={14}/>
             </BoardChart>
             <BoardChart clickFuncion={() => {handleClick(7)}} title="Clasificación de resultados" color="#9FC3EC" scss="BoardChart7">
                 <ChartPreview2/>

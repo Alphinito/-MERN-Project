@@ -25,19 +25,27 @@ ChartJS.register(
   Filler
 );
 
-const ChartPreview = ({dataa}) => {
+const ChartPreview = ({dataa, title, titleSize, mes, anual}) => {
 
   const datos = dataa
   const planeadas = []
   for (let i = 1; i < 32 ; i++) {
     const currentDate = new Date()
-    planeadas[i] = datos.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && res.REA_DIRECTA == 0).length
+    !mes && !anual
+    ?
+      planeadas[i] = datos.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear() && res.REA_DIRECTA == 0).length
+    :
+      planeadas[i] = datos.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == mes && new Date(res.REA_FECHA).getFullYear() == anual && res.REA_DIRECTA == 0).length
   }
 
   const noPlaneadas = []
   for (let i = 1; i < 32 ; i++) {
     const currentDate = new Date()
-    noPlaneadas[i] = datos.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && res.REA_DIRECTA == 1).length
+    !mes && !anual
+    ?
+      noPlaneadas[i] = datos.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear() && res.REA_DIRECTA == 1).length
+    :
+      noPlaneadas[i] = datos.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == mes && new Date(res.REA_FECHA).getFullYear() == anual && res.REA_DIRECTA == 1).length
   }
 
   const labels = ['00','01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
@@ -56,6 +64,16 @@ const ChartPreview = ({dataa}) => {
     plugins: {
       legend: {
         display: true,
+      },
+      title: {
+        display: true,
+        text: title,
+        color: '#0080c4',
+        font:{
+          family: "'Karla', sans-serif",
+          size: titleSize,
+          weight: 300,
+        }
       },
     },
   };
@@ -84,7 +102,7 @@ const ChartPreview = ({dataa}) => {
       ],
       labels,
     };
-  }, [datos]);
+  }, [datos,mes,anual]);
 
   return <Line data={data} options={options} />;
 

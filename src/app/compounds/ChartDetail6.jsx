@@ -4,9 +4,12 @@ import '../../../public/styles/board.scss'
 import BoardConentDetailLayout from "../containers/BoardContentDetail"
 import Input1 from "../components/input"
 import Select1 from "../components/select1"
+import Select2 from "../components/select2"
+import SingleLayout from "../containers/SingleLayout"
 import ChartDetailContent from "../containers/ChartDetailContent"
 import Result from "../components/res/Result"
-import TimeIndicator from "../components/res/TimeIndicator"
+import Lottie from "lottie-react"
+import buscaAlgo from '../../../assets/animations/search.json'
 import { ChartsContext } from "../context/chartsContext"
 import { VisitasRealizadasAnual } from "../../logic/filter"
 import { VisitasRealizadasMes } from "../../logic/filter"
@@ -18,8 +21,9 @@ const ChartDetail6 = () => {
 
     const cookies = new Cookies
     const rol = cookies.get('ROL',{})
-    const {busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitas, dataVisitasRealizadas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
+    const {currentMonthFilter, setCurrentMonthFilter,currentYearFilter, setCurrentYearFilter, busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitas, dataVisitasRealizadas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
     const [currentData, setCurrentData] = useState(dataVisitasRealizadas)
+    const [chartTitle, setChartTitle] = useState()
 
     //--------------------------------------------------------------------------------------|MAIN FUNCTION FOR FILTER AND SEARCH
     function filterAndSearch(){
@@ -75,23 +79,21 @@ const ChartDetail6 = () => {
         setCurrentGroupFilter(e.target.value)
     }
 
+    const handleChangeMeses = async e => {
+        setCurrentMonthFilter(e.target.value)
+    }
+    const handleChangeAños = async e => {
+        setCurrentYearFilter(e.target.value)
+    }
+
     const handleChange = async e => {//----------------------------------|CATCH INPUT SEARCH
         setBusqueda(e.target.value)
     }
 
-    useEffect( () => {//-------------------------------------------------|UPDATE USE EFECT
-        if(currentGroupFilter == '0'){
-            setVisitasDia(VisitasRealizadasDia(dataVisitasRealizadas))
-            setVisitasMes(VisitasRealizadasMes(dataVisitasRealizadas))
-            setVisitasAnual(VisitasRealizadasAnual(dataVisitasRealizadas))
-            setVisitasHistorico(VisitasRealizadasMAIN(dataVisitasRealizadas))
-        }else{//aquiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
-            setVisitasDia(VisitasRealizadasDia(basedData))
-            setVisitasMes(VisitasRealizadasMes(basedData))
-            setVisitasAnual(VisitasRealizadasAnual(basedData))
-            setVisitasHistorico(VisitasRealizadasMAIN(basedData))
-        }
-    }, [busqueda,currentGroupFilter])
+    useEffect(() => {//-------------------------------------------------|UPDATE USE EFECT
+        setChartTitle(rol=='VENTAS'&& rol != 'LIDER'?'Mis datos':'Global')
+        setCurrentData(dataVisitasRealizadas)
+    }, [busqueda,currentGroupFilter,currentMonthFilter,currentYearFilter])
 
     useEffect(()=>{//----------------------------------------------------|USE EFECT START AND END
         setVisitasDia(VisitasRealizadasDia(dataVisitasRealizadas))
@@ -99,12 +101,15 @@ const ChartDetail6 = () => {
         setVisitasAnual(VisitasRealizadasAnual(dataVisitasRealizadas))
         setVisitasHistorico(VisitasRealizadasMAIN(dataVisitasRealizadas))
         return()=>{//SE EJECUTA AL FINAL
+            const currentFecha = new Date()
             setBusqueda('')
             setCurrentGroupFilter('0')
+            setCurrentMonthFilter(currentFecha.getMonth())
+            setCurrentYearFilter(currentFecha.getFullYear())
         }  
     },[])
 
-    const clickFunction = (e,key) =>{//----------------------------------|WHEN CLICK A RESULT
+    const clickFunction = (e,key,text) =>{//----------------------------------|WHEN CLICK A RESULT
         switch (currentGroupFilter) {
             case '0':
                 setCurrentData(dataVisitasRealizadas)
@@ -122,6 +127,7 @@ const ChartDetail6 = () => {
                 setCurrentData(dataVisitasRealizadas.filter(dat => dat.EMP_ID == key))
                 break;
         }
+        setChartTitle(text)
     }
 
     return (
@@ -137,22 +143,35 @@ const ChartDetail6 = () => {
                         </>
             }
             <ChartDetailContent>
-                <ChartPreview dataa={currentData}/>
+                <ChartPreview dataa={currentData} title={chartTitle} titleSize={30} mes={currentMonthFilter} anual={currentYearFilter}/>
+
+                <div className="contSelectsFila">
+                    <Select2 
+                        dateTipe='mes'
+                        changeFunction={handleChangeMeses}
+                    />
+
+                    <Select2 
+                        dateTipe='año'
+                        changeFunction={handleChangeAños}
+                    />
+                </div>
             </ChartDetailContent>
             {
                 currentGroupFilter == 0
                 ?
-                    <TimeIndicator 
-                        showData={false}
-                    />
+                    <SingleLayout padding={'4rem'} color={'#f9f9f9'}>
+                          <Lottie animationData={buscaAlgo}/>
+                    </SingleLayout>
+
                 :currentGroupFilter == 1
                     ?
                         <div className="resultsCont">
                             {basedData.map( data =>(
                                 <Result 
-                                    clickFunction={e=>{clickFunction(e,data.CIU_ID)}} 
+                                    clickFunction={e=>{clickFunction(e,data.CIU_ID,data.CIU_CIUDAD)}} 
                                     SCSS="Result-ciudades" 
-                                    text={data.CIU_CIUDAD+ ' ('+data.CIU_ID+')'} 
+                                    text={`${data.CIU_CIUDAD} (${data.CIU_ID})`} 
                                     key={data.CIU_ID}
                                 />
                             ))}
@@ -163,9 +182,9 @@ const ChartDetail6 = () => {
                             <div className="resultsCont">
                                 {basedData.map( data =>(
                                     <Result 
-                                        clickFunction={e=>{clickFunction(e,data.ZON_ID)}} 
+                                        clickFunction={e=>{clickFunction(e,data.ZON_ID,data.ZON_ZONA)}} 
                                         SCSS="Result-zonas" 
-                                        text={data.ZON_ZONA+' ('+data.ZON_ID+')'} 
+                                        text={`${data.ZON_ZONA} (${data.ZON_ID})`} 
                                         key={data.ZON_ID} 
                                     />
                                 ))}
@@ -175,9 +194,9 @@ const ChartDetail6 = () => {
                                 <div className="resultsCont">
                                     {basedData.map( data =>(
                                         <Result 
-                                            clickFunction={e=>{clickFunction(e,data.EQU_ID)}} 
+                                            clickFunction={e=>{clickFunction(e,data.EQU_ID,data.EQU_EQUIPO)}} 
                                             SCSS="Result-equipos"
-                                            text={data.EQU_EQUIPO+' - Lider: '+data.EMP_NOMBRE+' '+data.EMP_APELLIDO+' ('+data.EMP_ID+')'} 
+                                            text={`${data.EQU_EQUIPO} - Lider: ${data.EMP_NOMBRE} ${data.EMP_APELLIDO} (${data.EMP_ID})`} 
                                             key={data.EQU_ID} 
                                         />
                                     ))}
@@ -187,7 +206,7 @@ const ChartDetail6 = () => {
                                     <div className="resultsCont">
                                         {basedData.map( data =>(
                                             <Result 
-                                                clickFunction={e=>{clickFunction(e,data.EMP_ID)}} 
+                                                clickFunction={e=>{clickFunction(e,data.EMP_ID,`${data.EMP_NOMBRE} ${data.EMP_APELLIDO}`)}} 
                                                 SCSS="Result" 
                                                 text={`${data.EMP_NOMBRE} ${data.EMP_APELLIDO} - ${data.EMP_CEDULA} (${data.EQU_EQUIPO})`} 
                                                 key={data.EMP_ID} 
