@@ -11,7 +11,7 @@ import { VisitasRealizadasMes } from "../../logic/filter"
 const BoardChartsGrid = () => {
 
     const {setShowOptions,view,setView,title,setTitle,classVal,setClasVal,setShowBackArrow} = useContext(MainContext)
-    const {dataVisitas,dataVisitasRealizadas,dataVisitasPlaneadas,dataVisitasCanceladas,visitasMes,setVisitasMes} = useContext(ChartsContext)
+    const {dataVisitasSeguimientos,dataVisitasRealizadas,dataVisitasPlaneadas,dataVisitasCanceladas,visitasMes,setVisitasMes} = useContext(ChartsContext)
 
     const handleClick = (chart)=>{
         setClasVal('TitlePageContCenter')
@@ -50,6 +50,7 @@ const BoardChartsGrid = () => {
                 break;
 
             case 7:
+                setShowOptions(false)
                 setView('Chart7')
                 setTitle('Clasificación de resultados')
                 break;
@@ -89,7 +90,7 @@ const BoardChartsGrid = () => {
                 <ChartPreview dataa={dataVisitasRealizadas} title='Este mes' titleSize={14}/>
             </BoardChart>
             <BoardChart clickFuncion={() => {handleClick(7)}} title="Clasificación de resultados" color="#9FC3EC" scss="BoardChart7">
-                <ChartPreview2/>
+                <ChartPreview2 dataa={dataVisitasSeguimientos} title='Este mes' titleSize={14}/>
             </BoardChart>
         </BoardConentLayout>
     )

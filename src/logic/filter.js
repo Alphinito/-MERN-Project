@@ -11,6 +11,11 @@ export const DataVisitasRealizadas =  async() => {
     const responseFilter = response.filter(res => res.VIS_REAL == 1 && res.VIS_CANCELADO == 0)
     return responseFilter
 }
+export const DataVisitasSeguimiento = async() => {//--------------------------------------------|Seguimiento Visitas|
+    const response = await apiGET('charts-web/visitas-resultados-main')
+    console.log(response)
+    return response
+}
 export const Empleados = async() => {//------------------------------------------------------------|Empleados|
     const response = await apiGET('empleados')
     return response

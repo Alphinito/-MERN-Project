@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState} from "react"
-import ChartPreview from '../components/home/ChartPreview'
+import ChartPreview2 from '../components/home/ChartPreview2'
 import '../../../public/styles/board.scss'
 import BoardConentDetailLayout from "../containers/BoardContentDetail"
 import Input1 from "../components/input"
@@ -17,12 +17,13 @@ import { VisitasRealizadasDia } from "../../logic/filter"
 import { VisitasRealizadasMAIN } from "../../logic/filter"
 import Cookies from "universal-cookie/cjs/Cookies"
 
-const ChartDetail6 = () => {
+const ChartDetail7 = () => {
 
     const cookies = new Cookies
     const rol = cookies.get('ROL',{})
-    const {currentMonthFilter, setCurrentMonthFilter,currentYearFilter, setCurrentYearFilter, busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitas, dataVisitasRealizadas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
-    const [currentData, setCurrentData] = useState(dataVisitasRealizadas)
+    const {currentMonthFilter, setCurrentMonthFilter,currentYearFilter, setCurrentYearFilter, busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitasSeguimientos, dataVisitasRealizadas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
+    console.log(dataVisitasSeguimientos)
+    const [currentData, setCurrentData] = useState(dataVisitasSeguimientos)
     const [chartTitle, setChartTitle] = useState()
 
     //--------------------------------------------------------------------------------------|MAIN FUNCTION FOR FILTER AND SEARCH
@@ -143,7 +144,7 @@ const ChartDetail6 = () => {
                         </>
             }
             <ChartDetailContent>
-                <ChartPreview dataa={currentData} title={chartTitle} titleSize={30} mes={currentMonthFilter} anual={currentYearFilter}/>
+                <ChartPreview2 title={'Global'} titleSize={30} dataa={currentData} /*mes={currentMonthFilter} anual={currentYearFilter}*//>
 
                 <div className="contSelectsFila">
                     <Select2 
@@ -219,4 +220,4 @@ const ChartDetail6 = () => {
     )
 }
 
-export default ChartDetail6
+export default ChartDetail7

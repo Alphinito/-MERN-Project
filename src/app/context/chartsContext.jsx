@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext} from "react"
-import { MainDataVisitas,DataVisitasRealizadas,DataVisitasPlanificadas,DataVisitasCanceladas,Empleados,Equipos,Ciudades,Zonas } from "../../logic/filter"
+import { MainDataVisitas,DataVisitasRealizadas,DataVisitasPlanificadas,DataVisitasCanceladas,DataVisitasSeguimiento,Empleados,Equipos,Ciudades,Zonas } from "../../logic/filter"
 import { MainContext } from "./mainContext"
 import Cookies from "universal-cookie/cjs/Cookies"
 
@@ -19,6 +19,7 @@ export const ChartsProvider = ({children}) => {
     const [dataVisitasRealizadas,setDataVisitasRealizadas] = useState({})
     const [dataVisitasPlaneadas,setDataVisitasPlaneadas] = useState({})
     const [dataVisitasCanceladas,setDataVisitasCanceladas] = useState({})
+    const [dataVisitasSeguimientos,setDataVisitasSeguimientos] = useState({})
     const [dataEmpleados,setDataEmpleados] = useState({})
     const [dataEquipos,setDataEquipos] = useState({})
     const [dataZonas,setDataZonas] = useState({})
@@ -40,6 +41,8 @@ export const ChartsProvider = ({children}) => {
         async function  bridgueForDeclineError(){
             const visitas = await MainDataVisitas()
             const visitasReales = await DataVisitasRealizadas()
+            const visitasSeguimiento = await DataVisitasSeguimiento()
+            console.log(visitasSeguimiento)
             const visitasPlan = await DataVisitasPlanificadas(visitas)
             const visitasCanceladas = await DataVisitasCanceladas(visitas)
             const empleados = await Empleados()
@@ -51,8 +54,9 @@ export const ChartsProvider = ({children}) => {
                 case 'ADMIN':
                     setDataVisitas(visitas)
                     setDataVisitasRealizadas(visitasReales)
-                    DataVisitasPlanificadas(visitasPlan)
-                    DataVisitasCanceladas(visitasCanceladas)
+                    setDataVisitasPlaneadas(visitasPlan)
+                    setDataVisitasCanceladas(visitasCanceladas)
+                    setDataVisitasSeguimientos(visitasSeguimiento)
                     setDataEmpleados(empleados)
                     setDataEquipos(equipos)
                     setDataZonas(zonas)
@@ -62,8 +66,9 @@ export const ChartsProvider = ({children}) => {
                 case 'MERCADEO':
                     setDataVisitas(visitas)
                     setDataVisitasRealizadas(visitasReales)
-                    DataVisitasPlanificadas(visitasPlan)
-                    DataVisitasCanceladas(visitasCanceladas)
+                    setDataVisitasPlaneadas(visitasPlan)
+                    setDataVisitasCanceladas(visitasCanceladas)
+                    setDataVisitasSeguimientos(visitasSeguimiento)
                     setDataEmpleados(empleados)
                     setDataEquipos(equipos)
                     setDataZonas(zonas)
@@ -73,8 +78,9 @@ export const ChartsProvider = ({children}) => {
                 case 'LIDER':
                     setDataVisitas(visitas.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
                     setDataVisitasRealizadas(visitasReales.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
-                    DataVisitasPlanificadas(visitasPlan.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
-                    DataVisitasCanceladas(visitasCanceladas.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
+                    setDataVisitasPlaneadas(visitasPlan.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
+                    setDataVisitasCanceladas(visitasCanceladas.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
+                    setDataVisitasSeguimientos(visitasSeguimiento.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
                     setDataEmpleados(empleados.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
                     setDataEquipos(equipos.filter(res => res.EQU_LIDER == cookies.get('EMP_ID',{})))
                     setDataZonas(zonas)
@@ -84,14 +90,16 @@ export const ChartsProvider = ({children}) => {
                 case 'VENTAS':
                     setDataVisitas(visitas.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
                     setDataVisitasRealizadas(visitasReales.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
-                    DataVisitasPlanificadas(visitasPlan.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
-                    DataVisitasCanceladas(visitasCanceladas.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
+                    setDataVisitasPlaneadas(visitasPlan.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
+                    setDataVisitasCanceladas(visitasCanceladas.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
+                    setDataVisitasSeguimientos(visitasSeguimiento.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
                     break;
                 default:
                     break;
             }
             setLoading(false)
         }
+        console.log(dataVisitasSeguimientos)
         bridgueForDeclineError()
     },[])
 
@@ -103,6 +111,7 @@ export const ChartsProvider = ({children}) => {
             dataVisitasRealizadas,setDataVisitasRealizadas,
             dataVisitasPlaneadas,setDataVisitasPlaneadas,
             dataVisitasCanceladas,setDataVisitasCanceladas,
+            dataVisitasSeguimientos,setDataVisitasSeguimientos,
             dataEmpleados,setDataEmpleados,
             dataEquipos,setDataEquipos,
             dataZonas,setDataZonas,

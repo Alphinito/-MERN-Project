@@ -1,6 +1,7 @@
 import React,{ useMemo } from "react"
 import '../../../../public/styles/board.scss'
 import '../../../../public/styles/layouts.scss'
+import { Doughnut } from "react-chartjs-2"
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,7 +11,6 @@ import {
   Legend,
   Filler,
 } from "chart.js"
-import { Doughnut } from "react-chartjs-2"
 
 ChartJS.register(
   CategoryScale,
@@ -20,18 +20,33 @@ ChartJS.register(
   Legend,
   Filler
 );
-const scores = [6, 5, 5, 5, 3, 4, 6, 4, 5];
-const scores2 = [1, 3, 2, 2, 4, 4, 5, 3, 2];
-const labels = [100, 200, 300, 400, 500, 600, 700];
 
-const options = {
-  fill: true,
-  responsive: true,
-  
-};
+const ChartPreview2 = ({dataa, title, titleSize, mes, anual}) => {
 
-const ChartPreview2 = (props) => {
+  const datos = dataa
+  const producentes = datos.filter(res => res.RES_TIPO == 1).length
+  const contraproducentes = datos.filter(res => res.RES_TIPO == 2).length
+  const neutrales = datos.filter(res => res.RES_TIPO == 3).length
 
+  const options = {
+    fill: true,
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+      },
+      title: {
+        display: true,
+        text: title,
+        color: '#0080c4',
+        font:{
+          family: "'Karla', sans-serif",
+          size: titleSize,
+          weight: 300,
+        }
+      },
+    },
+  };
 
     const data = useMemo(function () {
     return {
@@ -41,8 +56,8 @@ const ChartPreview2 = (props) => {
         'Neutro u otro'
       ],
       datasets: [{
-        label: 'My First Dataset',
-        data: [300, 50, 100],
+        label: 'Cantidad',
+        data: [producentes, contraproducentes, neutrales],
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',

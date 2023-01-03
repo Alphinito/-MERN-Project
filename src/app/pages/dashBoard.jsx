@@ -7,6 +7,7 @@ import BackArrow from "../components/backArrow"
 import OptionsBar from "../components/home/optionsBar"
 import ChartDetail from "../compounds/ChartDetail"
 import ChartDetail6 from "../compounds/ChartDetail6"
+import ChartDetail7 from "../compounds/ChartDetail7"
 import LoadingPage from "./loading"
 import '../../../public/styles/board.scss' //SCSS
 import Cookies from "universal-cookie/cjs/Cookies"
@@ -51,10 +52,13 @@ const DashBoard = () => {
                         :view == 'Chart6'
                             ?
                                 <ChartDetail6/>
-                            :view == 'Perfil'
+                            :view == 'Chart7'
                                 ?
-                                    <Porfile/>
-                                :null
+                                    <ChartDetail7/>
+                                :view == 'Perfil'
+                                    ?
+                                        <Porfile/>
+                                    :null
             }
             {
                showOptions
