@@ -13,7 +13,6 @@ export const DataVisitasRealizadas =  async() => {
 }
 export const DataVisitasSeguimiento = async() => {//--------------------------------------------|Seguimiento Visitas|
     const response = await apiGET('charts-web/visitas-resultados-main')
-    console.log(response)
     return response
 }
 export const Empleados = async() => {//------------------------------------------------------------|Empleados|

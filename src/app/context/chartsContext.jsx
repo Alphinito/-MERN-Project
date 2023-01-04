@@ -42,7 +42,6 @@ export const ChartsProvider = ({children}) => {
             const visitas = await MainDataVisitas()
             const visitasReales = await DataVisitasRealizadas()
             const visitasSeguimiento = await DataVisitasSeguimiento()
-            console.log(visitasSeguimiento)
             const visitasPlan = await DataVisitasPlanificadas(visitas)
             const visitasCanceladas = await DataVisitasCanceladas(visitas)
             const empleados = await Empleados()
@@ -99,7 +98,6 @@ export const ChartsProvider = ({children}) => {
             }
             setLoading(false)
         }
-        console.log(dataVisitasSeguimientos)
         bridgueForDeclineError()
     },[])
 

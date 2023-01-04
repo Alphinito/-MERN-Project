@@ -90,6 +90,23 @@ body{
         cursor: pointer;
     }
 //-----------------------------------------------------------------------------------------|INPUTS|
+    .CheckBox1Cont{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 1rem;
+        label{
+            cursor: pointer;
+            margin-left: 8px;
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--azul);
+        }
+        input{
+            cursor: pointer;
+        }
+    }
+
     .Input1{
         width: 100%;
         border: none;

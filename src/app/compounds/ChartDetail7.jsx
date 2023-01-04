@@ -16,15 +16,16 @@ import { VisitasRealizadasMes } from "../../logic/filter"
 import { VisitasRealizadasDia } from "../../logic/filter"
 import { VisitasRealizadasMAIN } from "../../logic/filter"
 import Cookies from "universal-cookie/cjs/Cookies"
+import CheckBox1 from "../components/checkBox1"
 
 const ChartDetail7 = () => {
 
     const cookies = new Cookies
     const rol = cookies.get('ROL',{})
     const {currentMonthFilter, setCurrentMonthFilter,currentYearFilter, setCurrentYearFilter, busqueda, setBusqueda, dataEmpleados, dataEquipos, dataZonas, dataCiudades, currentGroupFilter, setCurrentGroupFilter, dataVisitasSeguimientos, dataVisitasRealizadas, visitasMes, setVisitasMes, visitasAnual, setVisitasAnual, visitasDia, setVisitasDia, visitasHistorico, setVisitasHistorico} = useContext(ChartsContext)
-    console.log(dataVisitasSeguimientos)
     const [currentData, setCurrentData] = useState(dataVisitasSeguimientos)
     const [chartTitle, setChartTitle] = useState()
+    const [currentHistorico, setcurrentHistorico] = useState(false)
 
     //--------------------------------------------------------------------------------------|MAIN FUNCTION FOR FILTER AND SEARCH
     function filterAndSearch(){
@@ -32,9 +33,9 @@ const ChartDetail7 = () => {
         switch (currentGroupFilter) {
             case '0':
                 if(!busqueda){
-                    basedDataa = dataVisitasRealizadas
+                    basedDataa = dataVisitasSeguimientos
                 }else{
-                    basedDataa = dataVisitasRealizadas //FILTRO DE BUSQUEDA
+                    basedDataa = dataVisitasSeguimientos //FILTRO DE BUSQUEDA
                 }
                 break;
 
@@ -79,21 +80,24 @@ const ChartDetail7 = () => {
     const handleChangeSelect = async e => {//----------------------------|CATCH SELECT SEARCH
         setCurrentGroupFilter(e.target.value)
     }
-
     const handleChangeMeses = async e => {
         setCurrentMonthFilter(e.target.value)
     }
     const handleChangeAños = async e => {
         setCurrentYearFilter(e.target.value)
     }
-
+    const handleChangeCheckBox = e => {
+        e.target.checked
+        ?setcurrentHistorico(true)
+        :setcurrentHistorico(false)
+    }
     const handleChange = async e => {//----------------------------------|CATCH INPUT SEARCH
         setBusqueda(e.target.value)
     }
 
     useEffect(() => {//-------------------------------------------------|UPDATE USE EFECT
         setChartTitle(rol=='VENTAS'&& rol != 'LIDER'?'Mis datos':'Global')
-        setCurrentData(dataVisitasRealizadas)
+        setCurrentData(dataVisitasSeguimientos)
     }, [busqueda,currentGroupFilter,currentMonthFilter,currentYearFilter])
 
     useEffect(()=>{//----------------------------------------------------|USE EFECT START AND END
@@ -113,19 +117,19 @@ const ChartDetail7 = () => {
     const clickFunction = (e,key,text) =>{//----------------------------------|WHEN CLICK A RESULT
         switch (currentGroupFilter) {
             case '0':
-                setCurrentData(dataVisitasRealizadas)
+                setCurrentData(dataVisitasSeguimientos)
                 break;
             case '1':
-                setCurrentData(dataVisitasRealizadas.filter(dat => dat.EMP_CIUDAD == key))
+                setCurrentData(dataVisitasSeguimientos.filter(dat => dat.EMP_CIUDAD == key))
                 break;
             case '2':
-                setCurrentData(dataVisitasRealizadas.filter(dat => dat.EMP_ZONA == key))
+                setCurrentData(dataVisitasSeguimientos.filter(dat => dat.EMP_ZONA == key))
                 break;
             case '3':
-                setCurrentData(dataVisitasRealizadas.filter(dat => dat.EQU_ID == key))
+                setCurrentData(dataVisitasSeguimientos.filter(dat => dat.EQU_ID == key))
                 break;
             case '4':
-                setCurrentData(dataVisitasRealizadas.filter(dat => dat.EMP_ID == key))
+                setCurrentData(dataVisitasSeguimientos.filter(dat => dat.EMP_ID == key))
                 break;
         }
         setChartTitle(text)
@@ -144,9 +148,10 @@ const ChartDetail7 = () => {
                         </>
             }
             <ChartDetailContent>
-                <ChartPreview2 title={'Global'} titleSize={30} dataa={currentData} /*mes={currentMonthFilter} anual={currentYearFilter}*//>
+                <ChartPreview2 title={chartTitle} titleSize={30} dataa={currentData} mes={currentMonthFilter} anual={currentYearFilter} historico={currentHistorico}/>
 
                 <div className="contSelectsFila">
+                    <CheckBox1 text='Ver historico' id={1} changeFunction={handleChangeCheckBox}/>
                     <Select2 
                         dateTipe='mes'
                         changeFunction={handleChangeMeses}

@@ -21,12 +21,35 @@ ChartJS.register(
   Filler
 );
 
-const ChartPreview2 = ({dataa, title, titleSize, mes, anual}) => {
+const ChartPreview2 = ({dataa, title, titleSize, mes, anual, historico}) => {
 
+  //-----------------------------------------------------------------------------------------------------------|VARS
+  const currentDate = new Date()
   const datos = dataa
-  const producentes = datos.filter(res => res.RES_TIPO == 1).length
-  const contraproducentes = datos.filter(res => res.RES_TIPO == 2).length
-  const neutrales = datos.filter(res => res.RES_TIPO == 3).length
+  let producentes
+  let contraproducentes
+  let neutrales
+
+  //-----------------------------------------------------------------------------------------------------------|EJEC
+  if(historico){//si está filtrado por historico
+
+    producentes = datos.filter(res => res.RES_TIPO == 1).length
+    contraproducentes = datos.filter(res => res.RES_TIPO == 2).length
+    neutrales = datos.filter(res => res.RES_TIPO == 3).length
+
+  }else if(!mes && !anual){//si no hay mes o año (default)
+
+    producentes = datos.filter(res => res.RES_TIPO == 1 && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear()).length
+    contraproducentes = datos.filter(res => res.RES_TIPO == 2 && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear()).length
+    neutrales = datos.filter(res => res.RES_TIPO == 3 && new Date(res.REA_FECHA).getMonth() == new Date(currentDate).getMonth() && new Date(res.REA_FECHA).getFullYear() == new Date(currentDate).getFullYear()).length
+
+  }else{//filtrado por mes y año (filter)
+
+    producentes = datos.filter(res => res.RES_TIPO == 1 && new Date(res.REA_FECHA).getMonth() == mes && new Date(res.REA_FECHA).getFullYear() == anual).length
+    contraproducentes = datos.filter(res => res.RES_TIPO == 2 && new Date(res.REA_FECHA).getMonth() == mes && new Date(res.REA_FECHA).getFullYear() == anual).length
+    neutrales = datos.filter(res => res.RES_TIPO == 3 && new Date(res.REA_FECHA).getMonth() == mes && new Date(res.REA_FECHA).getFullYear() == anual).length
+
+  }
 
   const options = {
     fill: true,
@@ -37,7 +60,7 @@ const ChartPreview2 = ({dataa, title, titleSize, mes, anual}) => {
       },
       title: {
         display: true,
-        text: title,
+        text: `${title}: ${producentes+contraproducentes+neutrales}`,
         color: '#0080c4',
         font:{
           family: "'Karla', sans-serif",
@@ -66,11 +89,10 @@ const ChartPreview2 = ({dataa, title, titleSize, mes, anual}) => {
         hoverOffset: 4
       }]
     };
-  }, []);
+  }, [datos, mes, anual, historico]);
 
   return <Doughnut data={data} options={options}/>
   
-
 }
 
 export default ChartPreview2
