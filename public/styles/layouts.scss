@@ -39,7 +39,7 @@
     height: 100%;
     background-color: var(--blanco);
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: repeat(3,min-content);
 }
 .BoardConentDetailLayout{//-------------------------------------------------------------------|BoardConentDetailLayout|
     display: grid;
@@ -53,6 +53,17 @@
     background-color: var(--blanco);
     grid-template-rows: min-content 1fr;
     grid-template-columns: 1fr 280px;
+}
+.BoardVisitsResultsCont{//-------------------------------------------------------------------|BoardVisitsResultsCont|
+    grid-column: 1/6;
+    grid-row: 3/4;
+    width: 100%;
+    margin-top: 5rem;
+    height: min-content;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr max-content;
+    grid-auto-rows: max-content;
 }
 .ChartDetailContent{//------------------------------------------------------------------------|ChartDetailContent|
     width: 100%;

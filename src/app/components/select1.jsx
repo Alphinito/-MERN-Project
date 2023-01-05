@@ -6,7 +6,13 @@ const rol = cookies.get('ROL',{})
 
 const Select1 = (props) => {
     return (
-        <select name={props.id} id={props.id} className="Select1" onChange={props.changeFunction}>
+        <select name={props.id} id={props.id} className="Select1" onChange={props.changeFunction}
+        style={
+            props.margin
+            ?{margin: 0}
+            :{}
+        }
+        >
             {
             
                 rol == 'ADMIN'

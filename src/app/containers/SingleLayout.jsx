@@ -8,7 +8,8 @@ const SingleLayout = ({padding,colorBorder, color, children}) => {
                 borderRightWidth: 1, 
                 borderRightStyle: 'solid',
                 padding: padding,
-                borderRightColor: colorBorder||'transparent'}}>
+                borderRightColor: colorBorder||'transparent'
+        }}>
             {children}
         </section>
     )

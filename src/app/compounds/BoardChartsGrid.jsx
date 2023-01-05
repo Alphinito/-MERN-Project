@@ -7,6 +7,7 @@ import '../../../public/styles/board.scss' //SCSS
 import { MainContext } from "../context/mainContext"
 import { ChartsContext } from "../context/chartsContext"
 import { VisitasRealizadasMes } from "../../logic/filter"
+import BoardVisitsResults from "./BoardVisitsResults"
 
 const BoardChartsGrid = () => {
 
@@ -92,6 +93,7 @@ const BoardChartsGrid = () => {
             <BoardChart clickFuncion={() => {handleClick(7)}} title="Clasificación de resultados" color="#9FC3EC" scss="BoardChart7">
                 <ChartPreview2 dataa={dataVisitasSeguimientos} title='Este mes' titleSize={14}/>
             </BoardChart>
+            <BoardVisitsResults/>
         </BoardConentLayout>
     )
 }
