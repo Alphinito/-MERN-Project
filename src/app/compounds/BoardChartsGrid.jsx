@@ -47,7 +47,7 @@ const BoardChartsGrid = () => {
             case 6:
                 setShowOptions(false)
                 setView('Chart6')
-                setTitle('Cumplimiento a la planificación')
+                setTitle('Planificación de visitas')
                 break;
 
             case 7:

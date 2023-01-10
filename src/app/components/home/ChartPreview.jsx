@@ -48,6 +48,10 @@ const ChartPreview = ({dataa, title, titleSize, mes, anual}) => {
       noPlaneadas[i] = datos.filter(res => new Date(res.REA_FECHA).getDate() == i && new Date(res.REA_FECHA).getMonth() == mes && new Date(res.REA_FECHA).getFullYear() == anual && res.REA_DIRECTA == 1).length
   }
 
+  const totales = []
+  for (let i = 1; i < 32 ; i++) {
+    totales[i] = noPlaneadas[i] + planeadas[i]
+  }
   const labels = ['00','01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
 
   const options = {
@@ -97,6 +101,14 @@ const ChartPreview = ({dataa, title, titleSize, mes, anual}) => {
           borderColor: "green",
           backgroundColor: "rgba(0, 255, 0, 0.3)",
           pointBackgroundColor: "green",
+          pointRadius: 6,
+        },
+        {
+          label: "Total",
+          data: totales,
+          borderColor: "rgba(155, 155, 155, 0.3)",
+          backgroundColor: "rgba(155, 155, 155, 0.3)",
+          pointBackgroundColor: "rgba(155, 155, 155, 0.3)",
           pointRadius: 6,
         },
       ],

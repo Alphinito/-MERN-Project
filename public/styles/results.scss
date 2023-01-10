@@ -36,15 +36,19 @@
     .Cliente{
 
     }
-    .statusReal,.statusSeguimiento{
+    .statusRealEcho,.statusRealPendiente,.statusSegEcho,.statusSegPendiente{
         background-color: var(--gris);
         border: 1px solid var(--azul);
         height: 20px;
         grid-column: 2/3;
         grid-row: 1/4
     }
-    .statusSeguimiento{
+    .statusSegEcho,.statusSegPendiente{
         grid-column: 3/4;
+    }
+    .statusRealEcho,.statusSegEcho{
+        background-color: var(--azul);
+        border: 1px solid var(--gris);
     }
 }
 //------------------------------------------------------
