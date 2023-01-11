@@ -6,6 +6,7 @@ import TitlePage from "../components/home/TitlePage.jsx"
 import BackArrow from "../components/backArrow"
 import OptionsBar from "../components/home/optionsBar"
 import ChartDetail from "../compounds/ChartDetail"
+import ChartDetail2 from "../compounds/ChartDetail2"
 import ChartDetail6 from "../compounds/ChartDetail6"
 import ChartDetail7 from "../compounds/ChartDetail7"
 import LoadingPage from "./loading"
@@ -40,25 +41,21 @@ const DashBoard = () => {
             </div>
             
             {
-                loading
-                ?
-                    <LoadingPage/>
+                loading 
+                ?<LoadingPage/>
                 :view == ''
-                    ?
-                        <BoardChartsGrid/>
+                    ?<BoardChartsGrid/>
                     :view == 'Chart1'
-                        ? 
-                            <ChartDetail/>
-                        :view == 'Chart6'
-                            ?
-                                <ChartDetail6/>
-                            :view == 'Chart7'
-                                ?
-                                    <ChartDetail7/>
-                                :view == 'Perfil'
-                                    ?
-                                        <Porfile/>
-                                    :null
+                        ?<ChartDetail/>
+                        :view == 'Chart2'
+                            ?<ChartDetail2/>
+                            :view == 'Chart6'
+                                ?<ChartDetail6/>
+                                :view == 'Chart7'
+                                    ?<ChartDetail7/>
+                                    :view == 'Perfil'
+                                        ?<Porfile/>
+                                        :null
             }
             {
                showOptions

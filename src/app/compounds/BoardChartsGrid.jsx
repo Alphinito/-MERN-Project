@@ -26,7 +26,8 @@ const BoardChartsGrid = () => {
 
             case 2:
                 setView('Chart2')
-                setTitle('Clientes con menor actividad')
+                setTitle('Relación con clientes')
+                setShowOptions(false)
                 break;
 
             case 3:
@@ -75,7 +76,7 @@ const BoardChartsGrid = () => {
             <BoardChart clickFuncion={() => {handleClick(1)}} title="Visitas este mes" color="#9FC3EC" scss="BoardChart1">
                 <div className="ChartIndicativeContent"><h2 className="bigTitle">{visitasMes}</h2></div> 
             </BoardChart>
-            <BoardChart clickFuncion={() => {handleClick(2)}} title="Clientes < atención" color="#FF958A" scss="BoardChart2">
+            <BoardChart clickFuncion={() => {handleClick(2)}} title="Relación con clientes" color="#FF958A" scss="BoardChart2">
             <div className="ChartIndicativeContent"><h2 className="bigTitle">156</h2></div> 
             </BoardChart>
             <BoardChart clickFuncion={() => {handleClick(3)}} title="Clientes > atención" color="#C1A0E5" scss="BoardChart3">

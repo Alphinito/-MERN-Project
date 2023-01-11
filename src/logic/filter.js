@@ -27,6 +27,11 @@ export const Ciudades = async() => {//------------------------------------------
     const response = await apiGET('ciudades')
     return response
 }
+
+export const Clientes = async() => {//--------------------------------------------------------------|Ciudades|
+    const response = await apiGET('clientes')
+    return response
+}
 export const Zonas = async() => {//--------------------------------------------------------------------|Zonas|
     const response = await apiGET('zonas')
     return response
