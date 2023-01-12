@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react"
 import BoardConentLayout from "../containers/BoardContent"
 import BoardChart from "../components/home/BoardChart"
-import ChartPreview from "../components/home/ChartPreview"
-import ChartPreview2 from "../components/home/ChartPreview2"
+import ChartPreview from "../components/charts/ChartPreview"
+import ChartPreview2 from "../components/charts/ChartPreview2"
 import '../../../public/styles/board.scss' //SCSS
 import { MainContext } from "../context/mainContext"
 import { ChartsContext } from "../context/chartsContext"

@@ -11,7 +11,7 @@ export const DataVisitasRealizadas =  async() => {
     const responseFilter = response.filter(res => res.VIS_REAL == 1 && res.VIS_CANCELADO == 0)
     return responseFilter
 }
-export const DataVisitasSeguimiento = async() => {//--------------------------------------------|Seguimiento Visitas|
+export const DataVisitasSeguimiento = async() => {//-------------------------------------|Seguimiento Visitas|
     const response = await apiGET('charts-web/visitas-resultados-main')
     return response
 }
@@ -28,8 +28,13 @@ export const Ciudades = async() => {//------------------------------------------
     return response
 }
 
-export const Clientes = async() => {//--------------------------------------------------------------|Ciudades|
+export const Clientes = async() => {//--------------------------------------------------------------|Clientes|
     const response = await apiGET('clientes')
+    return response
+}
+
+export const ResultadosVisitas = async() => {//--------------------------------------------|ResultadosVisitas|
+    const response = await apiGET('resultados')
     return response
 }
 export const Zonas = async() => {//--------------------------------------------------------------------|Zonas|

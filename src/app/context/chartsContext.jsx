@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext} from "react"
-import { MainDataVisitas,DataVisitasRealizadas,DataVisitasPlanificadas,DataVisitasCanceladas,DataVisitasSeguimiento,Empleados,Equipos,Ciudades,Clientes,Zonas } from "../../logic/filter"
+import { MainDataVisitas,DataVisitasRealizadas,DataVisitasPlanificadas,DataVisitasCanceladas,DataVisitasSeguimiento,Empleados,Equipos,Ciudades,Clientes,ResultadosVisitas,Zonas } from "../../logic/filter"
 import { MainContext } from "./mainContext"
 import Cookies from "universal-cookie/cjs/Cookies"
 
@@ -25,6 +25,7 @@ export const ChartsProvider = ({children}) => {
     const [dataZonas,setDataZonas] = useState({})
     const [dataCiudades,setDataCiudades] = useState({})
     const [dataClientes,setDataClientes] = useState({})
+    const [dataResultadosVisitas,setDataResultadosVisitas] = useState({})
     //filter
     const [currentGroupFilter,setCurrentGroupFilter] = useState('0')
     const [busqueda,setBusqueda] = useState('')
@@ -50,6 +51,7 @@ export const ChartsProvider = ({children}) => {
             const zonas = await Zonas()
             const ciudades = await Ciudades()
             const clientes = await Clientes()
+            const resultadosVisitas = await ResultadosVisitas()
 
             switch (rol) {
                 case 'ADMIN':
@@ -63,6 +65,7 @@ export const ChartsProvider = ({children}) => {
                     setDataZonas(zonas)
                     setDataCiudades(ciudades)
                     setDataClientes(clientes)
+                    setDataResultadosVisitas(resultadosVisitas)
                     break;
 
                 case 'MERCADEO':
@@ -76,6 +79,7 @@ export const ChartsProvider = ({children}) => {
                     setDataZonas(zonas)
                     setDataCiudades(ciudades)
                     setDataClientes(clientes)
+                    setDataResultadosVisitas(resultadosVisitas)
                     break;
 
                 case 'LIDER':
@@ -89,6 +93,7 @@ export const ChartsProvider = ({children}) => {
                     setDataZonas(zonas)
                     setDataCiudades(ciudades)
                     setDataClientes(clientes)
+                    setDataResultadosVisitas(resultadosVisitas)
                     break;
 
                 case 'VENTAS':
@@ -98,6 +103,7 @@ export const ChartsProvider = ({children}) => {
                     setDataVisitasCanceladas(visitasCanceladas.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
                     setDataVisitasSeguimientos(visitasSeguimiento.filter(res => res.EMP_ID == cookies.get('EMP_ID',{})))
                     setDataClientes(clientes)
+                    setDataResultadosVisitas(resultadosVisitas)
                     break;
                 default:
                     break;
@@ -121,6 +127,7 @@ export const ChartsProvider = ({children}) => {
             dataZonas,setDataZonas,
             dataCiudades,setDataCiudades,
             dataClientes,setDataClientes,
+            dataResultadosVisitas,setDataResultadosVisitas,
             //filter
             busqueda,setBusqueda,
             currentGroupFilter,setCurrentGroupFilter,

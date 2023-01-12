@@ -5,7 +5,7 @@ RoutClientes.get('/', (req, res) =>{
     req.getConnection((err, conn) => {
         if(err) return res.send(err)
 
-        conn.query('SELECT * FROM cliente',(err,rows) => {
+        conn.query('SELECT TIP_TIPO, CLI_ID, CLI_SAP, CLI_NOMBRE, CLI_NIT, CLI_CIUDAD, CLI_ZONA, CLI_TIPO FROM cliente INNER JOIN tipos_cliente ON CLI_TIPO = TIP_ID',(err,rows) => {
             if(err) return res.send(err)
 
             res.json(rows)

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState} from "react"
-import ChartPreview from '../components/home/ChartPreview'
+import ChartPreview from '../components/charts/ChartPreview'
 import '../../../public/styles/board.scss'
 import BoardConentDetailLayout from "../containers/BoardContentDetail"
 import Input1 from "../components/input"

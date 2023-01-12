@@ -68,6 +68,14 @@ const ChartPreview = ({dataa, title, titleSize, mes, anual}) => {
     plugins: {
       legend: {
         display: true,
+        labels: {
+          // This more specific font property overrides the global property
+          font: {
+              family: "'Karla', sans-serif",
+              size: 14,
+              weight: 300
+          }
+      }
       },
       title: {
         display: true,

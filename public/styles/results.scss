@@ -56,6 +56,7 @@
 //------------------------------------------------------
 .Result,.Result-zonas,.Result-equipos,.Result-ciudades{
     cursor: pointer;
+    border-left: 2px solid var(--gris-oscuro);
     display: grid;
     width: 100%;
     margin: 1rem;
